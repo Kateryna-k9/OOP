@@ -1,6 +1,13 @@
 // Lab 2.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+//RT-11-24 R 100000 12
+//RT-11-24 R 50000 10
+//CGU-12K C 17.5 3
+
+
+
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <stdio.h>
