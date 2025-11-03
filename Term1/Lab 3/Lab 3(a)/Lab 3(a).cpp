@@ -1,4 +1,4 @@
-// Lab 3(a).cpp : This file contains the 'main' function. Program execution begins and ends there.
+Ôªø// Lab 3(a).cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #define  _CRT_SECURE_NO_WARNINGS
@@ -7,67 +7,63 @@
 #include <math.h>
 using namespace std;
 
-int main() {
 
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
+int main() {
     while (true) {
 
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
+
+
+        printf("–õ–∞–±–æ—Ä–∞—Ç–æ—Ä–Ω–∞ —Ä–æ–±–æ—Ç–∞ ‚Ññ3–ê\n");
+        printf("–ó–Ω–∞—Ö–æ–¥–∂–µ–Ω–Ω—è –∫–æ—Ä–µ–Ω—ñ–≤ –∫–≤–∞–¥—Ä–∞—Ç–Ω–æ–≥–æ —Ä—ñ–≤–Ω—è–Ω–Ω—è –≤–∏–¥—É ax¬≤ + bx + c = 0\n");
+
         int a, b, c;
+        printf("–í–≤–µ–¥—ñ—Ç—å a: ");
+        scanf("%d", &a);
+        printf("–í–≤–µ–¥—ñ—Ç—å b: ");
+        scanf("%d", &b);
+        printf("–í–≤–µ–¥—ñ—Ç—å c: ");
+        scanf("%d", &c);
 
-        printf("–ÓÁ‚'ˇÁÓÍ Í‚‡‰‡ÚÌÓ„Ó ≥‚ÌˇÌÌˇ ax^2 + bx + c = 0\n");
-
-        printf("¬‚Â‰≥Ú¸ a: ");
+        printf("–í–≤–µ–¥—ñ—Ç—å a: ");
         if (scanf("%d", &a) != 1) {
-            printf("œÓÏËÎÍ‡ ‚‚Â‰ÂÌÌˇ!\n");
-            return 0;
-        }
-
-        printf("¬‚Â‰≥Ú¸ b: ");
-        if (scanf("%d", &b) != 1) {
-            printf("œÓÏËÎÍ‡ ‚‚Â‰ÂÌÌˇ!\n");
-            return 0;
-        }
-
-        printf("¬‚Â‰≥Ú¸ c: ");
-        if (scanf("%d", &c) != 1) {
-            printf("œÓÏËÎÍ‡ ‚‚Â‰ÂÌÌˇ!\n");
-            return 0;
+            printf("–í–≤–µ–¥–µ–Ω–æ –Ω–µ —Ü–∏—Ñ—Ä—É!\n");
+            break;
         }
 
         if (a == 0) {
-            printf("÷Â ÌÂ Í‚‡‰‡ÚÌÂ ≥‚ÌˇÌÌˇ.\n");
-            if (b == 0) {
-                if (c == 0)
-                    printf("–≥‚ÌˇÌÌˇ 0 = 0 ó ÌÂÒÍ≥Ì˜ÂÌÌ‡ Í≥Î¸Í≥ÒÚ¸ ÓÁ‚'ˇÁÍ≥‚.\n");
-                else
-                    printf("–≥‚ÌˇÌÌˇ ÌÂ Ï‡∫ ÓÁ‚'ˇÁÍ≥‚.\n");
+            printf("–¶–µ –Ω–µ –∫–≤–∞–¥—Ä–∞—Ç–Ω–µ —Ä—ñ–≤–Ω—è–Ω–Ω—è!\n");
+
+            if (b != 0) {
+                double x = -(double)c / b;
+                printf("–ö–æ—Ä—ñ–Ω—å —Ä—ñ–≤–Ω—è–Ω–Ω—è: x = %.2f\n", x);
             }
             else {
-                double x = -(double)c / b;
-                printf("À≥Ì≥ÈÌÂ ≥‚ÌˇÌÌˇ. –ÓÁ‚'ˇÁÓÍ: x = %.2lf\n", x);
+                if (c == 0)
+                    printf("–†—ñ–≤–Ω—è–Ω–Ω—è –º–∞—î –±–µ–∑–ª—ñ—á —Ä–æ–∑–≤‚Äô—è–∑–∫—ñ–≤.\n");
+                else
+                    printf("–†—ñ–≤–Ω—è–Ω–Ω—è –Ω–µ –º–∞—î —Ä–æ–∑–≤‚Äô—è–∑–∫—ñ–≤.\n");
             }
-            return 0;
         }
+        else {
+            int D = b * b - 4 * a * c;
+            printf("–î–∏—Å–∫—Ä–∏–º—ñ–Ω–∞–Ω—Ç D = %d\n", D);
 
-        int D = b * b - 4 * a * c;
-        printf("ƒËÒÍËÏ≥Ì‡ÌÚ D = %d\n", D);
-
-        if (D > 0) {
-            double x1 = (-b + sqrt(D)) / (2.0 * a);
-            double x2 = (-b - sqrt(D)) / (2.0 * a);
-            printf("ƒ‚‡ ≥ÁÌ≥ ‰≥ÈÒÌ≥ ÍÓÂÌ≥:\n");
-            printf("x1 = %.2lf\n", x1);
-            printf("x2 = %.2lf\n", x2);
+            if (D > 0) {
+                double x1 = (-b + sqrt(D)) / (2.0 * a);
+                double x2 = (-b - sqrt(D)) / (2.0 * a);
+                printf("–†—ñ–≤–Ω—è–Ω–Ω—è –º–∞—î –¥–≤–∞ —Ä—ñ–∑–Ω–∏—Ö –¥—ñ–π—Å–Ω–∏—Ö –∫–æ—Ä–µ–Ω—ñ:\n");
+                printf("x‚ÇÅ = %.2f, x‚ÇÇ = %.2f\n", x1, x2);
+            }
+            else if (D == 0) {
+                double x = -b / (2.0 * a);
+                printf("–†—ñ–≤–Ω—è–Ω–Ω—è –º–∞—î –æ–¥–∏–Ω –¥—ñ–π—Å–Ω–∏–π –∫–æ—Ä—ñ–Ω—å: x = %.2f\n", x);
+            }
+            else {
+                printf("–†—ñ–≤–Ω—è–Ω–Ω—è –Ω–µ –º–∞—î –¥—ñ–π—Å–Ω–∏—Ö –∫–æ—Ä–µ–Ω—ñ–≤ (D < 0).\n");
+            }
         }
-        else if (D == 0) {
-            double x = -b / (2.0 * a);
-            printf("Œ‰ËÌ ÔÓ‰‚≥ÈÌËÈ ÍÓ≥Ì¸: x = %.2lf\n", x);
-        }
-        else if (D < 0) {
-            printf("ÕÂÏ‡∫ ÍÓÂÌ≥‚");
-        }
-
-        return 0;
     }
+    return 0;
 }
