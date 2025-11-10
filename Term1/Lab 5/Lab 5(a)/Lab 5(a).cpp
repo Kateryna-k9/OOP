@@ -31,12 +31,12 @@ int main() {
     for (int i = 0; i < N; i++) cout << mas[i] << " ";
     cout << endl;
 
-    // --- ¬—“ј¬Ћ≈ЌЌя ---
+    
     int p, k;
     cout << "\n—к≥льки елемент≥в вставити? ";
     cin >> k;
 
-    if (k <= 0 || N + kt > MAX_SIZE) {
+    if (k <= 0 || N + k > MAX_SIZE) {
         cout << "Ќекоректна к≥льк≥сть дл€ вставленн€!\n";
         return 0;
     }
@@ -53,12 +53,12 @@ int main() {
     cout << "¬вед≥ть " << k << " нових елемент≥в: ";
     for (int i = 0; i < k; i++) cin >> newElems[i];
 
-    // «сув елемент≥в вправо
+    
     for (int i = N - 1; i >= p; i--) {
         mas[i + k] = mas[i];
     }
 
-    // ¬ставка нових елемент≥в
+    
     for (int i = 0; i < k; i++) {
         mas[p + i] = newElems[i];
     }
@@ -68,7 +68,7 @@ int main() {
     for (int i = 0; i < N; i++) cout << mas[i] << " ";
     cout << endl;
 
-    // --- ¬»ƒјЋ≈ЌЌя ---
+   
     int d, g;
     cout << "\n—к≥льки елемент≥в видалити? ";
     cin >> g;
@@ -92,7 +92,7 @@ int main() {
         return 0;
     }
 
-    // «сув елемент≥в вл≥во
+    
     for (int i = d + g; i < N; i++) {
         mas[i - g] = mas[i];
     }
