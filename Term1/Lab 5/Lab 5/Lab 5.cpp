@@ -12,7 +12,6 @@ int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    // --- Тестовий масив ---
     int mas[] = { 10, -3, 1, 4, -5, 2 };
     int N = sizeof(mas) / sizeof(int);
 
@@ -21,11 +20,11 @@ int main() {
         cout << mas[i] << " ";
     }
 
-    // Копіюємо масив для сортування
+    
     int temp[20];
     for (int i = 0; i < N; i++) temp[i] = mas[i];
 
-    // --- Сортування за спаданням ---
+   
     for (int j = 0; j < N - 1; j++) {
         for (int k = 0; k < N - j - 1; k++) {
             if (temp[k] < temp[k + 1]) {
@@ -39,7 +38,7 @@ int main() {
     int thirdMax = temp[2];
     cout << "\n\n3-й за величиною елемент = " << thirdMax << endl;
 
-    // --- Замінюємо більші елементи ---
+    
     for (int i = 0; i < N; i++) {
         if (mas[i] > thirdMax)
             mas[i] = thirdMax;
@@ -50,18 +49,18 @@ int main() {
         cout << mas[i] << " ";
     }
 
-    // --- Тестування на випадковому масиві ---
+    
     cout << "\n\nВипадковий масив:\n";
     N = 10;
     int randMas[20];
     for (int i = 0; i < N; i++) {
-        randMas[i] = rand() % 41 - 20; // від -20 до 20
+        randMas[i] = rand() % 41 - 20; 
         cout << randMas[i] << " ";
     }
 
     for (int i = 0; i < N; i++) temp[i] = randMas[i];
 
-    // Сортуємо
+    
     for (int j = 0; j < N - 1; j++) {
         for (int k = 0; k < N - j - 1; k++) {
             if (temp[k] < temp[k + 1]) {
