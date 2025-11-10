@@ -8,32 +8,35 @@
 using namespace std;
 
 int main() {
+	short n;
 	double x, y;
-	double a = 0.25;
-
-	double period = 19.75 / 3.5;
-	double start = 0.9 * period;
-	double end = period;
-
-	for (x = 0; x <= 19.75; x += a) {
-		double local = fmod(x, period);
-
-		if (local >= start && local <= end) {
-			printf("\n");
-				continue;
-		}
-
-		y = 2 * sin((3.14 * x) / (period / 2));
-			printf("x = %5.2f    y = %6.3f    ", x, y);
-
-			int p = (int)((y + 2) * 9);
-			for (int i = 0; i < p; i++) printf(" ");
-			printf("*\n");
+	short h;
+	for (n = 0; n < 10; n++) {
+		double e = n * 2;
+		double s = e + 2;
+		printf("|   x    |      y      |\n");
+		printf("|        |             |\n");
+		
+			
+			for (x = e; x <= s; x += 0.25) {
+				if (n % 2 == 0)
+					y = sqrt(4 - (x - s) * (x - s));
+				else
+					y = -sqrt(4 - (x - e) * (x - e));
 
 
 
+				printf("x = %5.2f  y = %6.5f    ", x, y);
+
+				h = (short)((y + 2) * 10);
+				for (int i = 0; i < h; i++) printf(" ");
+				printf("*\n");
+
+			}
+			
+		
+		getchar();
 	}
-
 
 
 
