@@ -15,73 +15,88 @@ int main() {
     int mas[] = { 10, -3, 1, 4, -5, 2 };
     int N = sizeof(mas) / sizeof(int);
 
+    int oMas[6];
+    for (int i = 0; i < N; i++)
+        oMas[i] = mas[i];
+
     cout << "Тестовий масив:\n";
     for (int i = 0; i < N; i++) {
         cout << mas[i] << " ";
     }
+    cout << '\n';
 
-    
-    int temp[20];
-    for (int i = 0; i < N; i++) temp[i] = mas[i];
-
-   
-    for (int j = 0; j < N - 1; j++) {
-        for (int k = 0; k < N - j - 1; k++) {
-            if (temp[k] < temp[k + 1]) {
-                int t = temp[k];
-                temp[k] = temp[k + 1];
-                temp[k + 1] = t;
+    int t;
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = i; j < N; j++) {
+            if (mas[i] > mas[j]) {
+                t = mas[i];
+                mas[i] = mas[j];
+                mas[j] = t;
             }
         }
     }
 
-    int thirdMax = temp[2];
+    cout << "\n Вiдсортований масив : \n";
+    for (int i = 0; i < N; i++)
+        cout << mas[i] << " ";
+
+
+    int thirdMax = mas[2];
     cout << "\n\n3-й за величиною елемент = " << thirdMax << endl;
 
-    
     for (int i = 0; i < N; i++) {
-        if (mas[i] > thirdMax)
-            mas[i] = thirdMax;
+        if (oMas[i] > thirdMax)
+            oMas[i] = thirdMax;
     }
 
     cout << "\nМасив після заміни:\n";
     for (int i = 0; i < N; i++) {
-        cout << mas[i] << " ";
+        cout << oMas[i] << " ";
     }
 
-    
+
     cout << "\n\nВипадковий масив:\n";
     N = 10;
-    int randMas[20];
+    int randMas[10];
     for (int i = 0; i < N; i++) {
-        randMas[i] = rand() % 41 - 20; 
+        randMas[i] = rand() % 41 - 20;
         cout << randMas[i] << " ";
+       
     }
-
-    for (int i = 0; i < N; i++) temp[i] = randMas[i];
+    int oRandMas[10];
+    for (int i = 0; i < N; i++)
+        oRandMas[i] = randMas[i];
+    cout << endl;
 
     
-    for (int j = 0; j < N - 1; j++) {
-        for (int k = 0; k < N - j - 1; k++) {
-            if (temp[k] < temp[k + 1]) {
-                int t = temp[k];
-                temp[k] = temp[k + 1];
-                temp[k + 1] = t;
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = i; j < N; j++) {
+            if (randMas[i] > randMas[j]) {
+                t = randMas[i];
+                randMas[i] = randMas[j];
+                randMas[j] = t;
             }
         }
     }
+    
+    cout << "\n Вiдсортований масив : \n";
+    for (int i = 0; i < N; i++)
+        cout << randMas[i] << " ";
 
-    thirdMax = temp[2];
+
+    
+    thirdMax = randMas[2];
     cout << "\n\n3-й за величиною елемент = " << thirdMax << endl;
 
+   
     for (int i = 0; i < N; i++) {
-        if (randMas[i] > thirdMax)
-            randMas[i] = thirdMax;
+        if (oRandMas[i] > thirdMax)
+            oRandMas[i] = thirdMax;
     }
 
     cout << "\nМасив після заміни:\n";
     for (int i = 0; i < N; i++) {
-        cout << randMas[i] << " ";
+        cout << oRandMas[i] << " ";
     }
 
     cout << endl;
