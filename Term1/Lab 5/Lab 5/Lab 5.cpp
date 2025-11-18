@@ -23,7 +23,7 @@ int main() {
     for (int i = 0; i < N; i++) {
         cout << mas[i] << " ";
     }
-    cout << '\n';
+   
 
     int t;
     for (int i = 0; i < N - 1; i++) {
@@ -36,9 +36,9 @@ int main() {
         }
     }
 
-    cout << "\n Вiдсортований масив : \n";
+    /*cout << "\n Вiдсортований масив : \n";
     for (int i = 0; i < N; i++)
-        cout << mas[i] << " ";
+        cout << mas[i] << " ";*/
 
 
     int thirdMax = mas[2];
@@ -79,9 +79,9 @@ int main() {
         }
     }
     
-    cout << "\n Вiдсортований масив : \n";
+   /* cout << "\n Вiдсортований масив : \n";
     for (int i = 0; i < N; i++)
-        cout << randMas[i] << " ";
+        cout << randMas[i] << " ";*/
 
 
     
