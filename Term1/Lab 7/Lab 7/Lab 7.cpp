@@ -31,10 +31,8 @@ int main() {
 
     cout << endl;
 
-    int result = Fun(mas1);   
-
-    cout << "\nДобуток нульового стовпця віддзеркаленої матриці: " << result << endl;
-
+    int dobutok = Fun(mas1);   
+    cout << "\nДобуток нульового стовпця віддзеркаленої матриці: " << dobutok << endl;
 
     cout << "\nОдновимiрний масив (пiсля функцiї) ->:\n ";
     for (int i = 0; i < N * M; i++)
