@@ -28,6 +28,14 @@ int main() {
 
 		}  // switch (a) 
 		if (a >= 5 && a <= 20) {
+			if (a = (char)a) {
+			printf("Помилка! Ви ввели не число.\n");
+
+
+			while (getchar() != '\n');
+			continue;
+		}
+		
 			printf("У кошику %d грибів\n", a);
 
 		} // if (a >= 5 && a <= 20)
@@ -73,7 +81,7 @@ int main() {
 			//continue;
 		}
 
-		if (scanf("%d", &a) != 1) {
+		if (a = (char)a) {
 			printf("Помилка! Ви ввели не число.\n");
 
 
