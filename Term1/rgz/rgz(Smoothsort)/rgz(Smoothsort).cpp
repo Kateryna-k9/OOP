@@ -139,7 +139,7 @@ int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    const int N = 20;      // Розмір масиву
+    const int N = 30;      // Розмір масиву
     const int RUNS = 100;  // Кількість запусків
 
     int sorted[N], reverseSorted[N], randomArr[N];

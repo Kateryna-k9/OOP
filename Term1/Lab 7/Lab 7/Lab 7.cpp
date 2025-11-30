@@ -1,4 +1,4 @@
-// Lab 7.cpp : This file contains the 'main' function. Program execution begins and ends there.
+ï»¿// Lab 7.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -12,7 +12,7 @@ using namespace std;
 
 #define N 3
 #define M 6
-int Fun(int mas1[]); //ïðîòîòèï
+int Fun(int mas1[]); //Ã¯Ã°Ã®Ã²Ã®Ã²Ã¨Ã¯
 
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
     SetConsoleOutputCP(1251);
 
     int mas1[N * M];
-    cout << "Îäíîâèìiðíèé ìàñèâ ->: \n";
+    cout << "ÃŽÃ¤Ã­Ã®Ã¢Ã¨Ã¬iÃ°Ã­Ã¨Ã© Ã¬Ã Ã±Ã¨Ã¢ ->: \n";
     for (int i = 0; i < N * M; i++) {
         mas1[i] = rand() % 5;
         cout << setw(4) << mas1[i];
@@ -31,10 +31,10 @@ int main() {
 
     cout << endl;
 
-    int dobutok = Fun(mas1);   
-    cout << "\nÄîáóòîê íóëüîâîãî ñòîâïöÿ â³ääçåðêàëåíî¿ ìàòðèö³: " << dobutok << endl;
+    int dobutok = Fun(mas1);
+    cout << "\nÃ„Ã®Ã¡Ã³Ã²Ã®Ãª Ã­Ã³Ã«Ã¼Ã®Ã¢Ã®Ã£Ã® Ã±Ã²Ã®Ã¢Ã¯Ã¶Ã¿ Ã¢Â³Ã¤Ã¤Ã§Ã¥Ã°ÃªÃ Ã«Ã¥Ã­Ã®Â¿ Ã¬Ã Ã²Ã°Ã¨Ã¶Â³: " << dobutok << endl;
 
-    cout << "\nÎäíîâèìiðíèé ìàñèâ (ïiñëÿ ôóíêöi¿) ->:\n ";
+    cout << "\nÃŽÃ¤Ã­Ã®Ã¢Ã¨Ã¬iÃ°Ã­Ã¨Ã© Ã¬Ã Ã±Ã¨Ã¢ (Ã¯iÃ±Ã«Ã¿ Ã´Ã³Ã­ÃªÃ¶iÂ¿) ->:\n ";
     for (int i = 0; i < N * M; i++)
         cout << setw(4) << mas1[i];
     cout << endl;
@@ -45,7 +45,7 @@ int Fun(int mas1[]) {
 
     int mas2[N][M];
 
-    cout << "\nÄðóê ÄÌ ç ÎÌ:\n";
+    cout << "\nÃ„Ã°Ã³Ãª Ã„ÃŒ Ã§ ÃŽÃŒ:\n";
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             mas2[i][j] = mas1[i * M + j];
@@ -54,7 +54,7 @@ int Fun(int mas1[]) {
         cout << endl;
     }
 
-    cout << "\nÏåðåòâîðåíà ìàòðèöÿ:\n";
+    cout << "\nÃÃ¥Ã°Ã¥Ã²Ã¢Ã®Ã°Ã¥Ã­Ã  Ã¬Ã Ã²Ã°Ã¨Ã¶Ã¿:\n";
 
 
     for (int i = 0; i < N; i++) {
@@ -78,17 +78,14 @@ int Fun(int mas1[]) {
         }
     }
 
-   
-     int D = 1;
 
-     for (int i = 0; i < N; i++) {
-            D *= mas2[i][0];
-     }
+    int D = 1;
 
-     return D;
+    for (int i = 0; i < N; i++) {
+        D *= mas2[i][0];
+    }
 
-    
+    return D;
 
 
-}
-    
+
