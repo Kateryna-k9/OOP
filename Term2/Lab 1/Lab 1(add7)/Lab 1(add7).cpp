@@ -5,18 +5,20 @@
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
+    while (true) {
+        int n;
+        cout << "\nEnter the number -> ";
+        cin >> n;
 
-    int i = 1, x = 0; 
-    for (int y = 0; y < n; y++) {
-        cout << i << " ";
-        x++;
-        if (x == i) { 
-            i++;
-            x = 0;
+        int i = 1, x = 0;
+        for (int y = 0; y < n; y++) {
+            cout << i << " ";
+            x++;
+            if (x == i) {
+                i++;
+                x = 0;
+            }
         }
     }
-
     return 0;
 }
