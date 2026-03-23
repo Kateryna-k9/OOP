@@ -18,18 +18,12 @@ void negative(int A[], int N) {
 }
 
 int D(int A[], int N) {
-    int d = 1;
-    bool n = false;
+    if (N < 0) return 1; 
 
-    for (int i = 0; i < N; i++) {
-        if (A[i] < 0) {
-            d *= A[i];
-            n = true;
-        }
-    }
-
-    if (!n) return 0;
-    return d;
+    if (A[N] < 0)
+        return A[N] * D(A, N - 1);
+    else
+        return D(A, N - 1);
 }
 
 int main() {
