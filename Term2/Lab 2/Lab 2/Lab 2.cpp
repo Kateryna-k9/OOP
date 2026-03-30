@@ -15,7 +15,8 @@ struct Component {
 const int MAX = 100;
 
 
-void input(Component arr[], int& n) {
+int input(Component arr[]) {
+    int n;
     cout << "Enter number of elements: ";
     cin >> n;
 
@@ -34,10 +35,12 @@ void input(Component arr[], int& n) {
         cout << "Quantity: ";
         cin >> arr[i].quantity;
     }
+    return n;
 }
 
 
-void randomFill(Component arr[], int& n) {
+int randomFill(Component arr[]) {
+    int n;
     srand(time(0));
 
     n = rand() % 5 + 3; 
@@ -50,6 +53,7 @@ void randomFill(Component arr[], int& n) {
     }
 
     cout << "Structure filled randomly!\n";
+    return n;
 }
 
 
@@ -99,10 +103,10 @@ int main() {
 
         switch (choice) {
         case 1:
-            input(arr, n);
+            n = input(arr);
             break;
         case 2:
-            randomFill(arr, n);
+            n = randomFill(arr);
             break;
         case 3:
             sortByName(arr, n);
