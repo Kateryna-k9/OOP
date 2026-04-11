@@ -1,8 +1,8 @@
 
 #pragma once
 #include <string>
-#define DEBUG
-#define PRINT_TYPE
+//#define DEBUG
+//#define PRINT_TYPE
 using namespace std;
 
 struct Component {
