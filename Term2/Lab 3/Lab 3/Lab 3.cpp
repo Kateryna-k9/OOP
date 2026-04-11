@@ -5,8 +5,7 @@
 #include "Header.h"
 
 using namespace std;
-
-#define PRINT_TYPE 1  
+  
 
 int main() {
     Component arr[MAX];
@@ -24,7 +23,7 @@ int main() {
 
         switch (choice) {
         case 1:
-#ifdef PRINT_TYPE == 1
+#ifdef PRINT_TYPE 
             n = input(arr);
 #else
             n = randomFill(arr);
