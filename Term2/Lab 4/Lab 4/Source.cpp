@@ -1,6 +1,6 @@
 #include "Header.h"
 
-// Заповнення масиву
+
 void fill(int** mas, int N, int M)
 {
     for (int i = 0; i < N; i++)
@@ -13,7 +13,7 @@ void fill(int** mas, int N, int M)
     }
 }
 
-// Обробка масиву
+
 int* process(int** mas, int N, int M, int* sum, int* size)
 {
     *sum = 0;
@@ -56,7 +56,7 @@ int* process(int** mas, int N, int M, int* sum, int* size)
     return result;
 }
 
-// Звільнення пам'яті
+
 void free(int** mas, int N)
 {
     for (int i = 0; i < N; i++)
