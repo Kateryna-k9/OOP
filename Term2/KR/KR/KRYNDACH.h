@@ -45,7 +45,7 @@ namespace KR {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -54,7 +54,6 @@ namespace KR {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(KRYNDACH::typeid));
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
@@ -67,7 +66,6 @@ namespace KR {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(48, 58);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(102, 94);
@@ -77,17 +75,16 @@ namespace KR {
 			// 
 			// pictureBox2
 			// 
-			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
 			this->pictureBox2->Location = System::Drawing::Point(187, 58);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(98, 91);
 			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox2->TabIndex = 1;
 			this->pictureBox2->TabStop = false;
+			
 			// 
 			// pictureBox3
 			// 
-			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
 			this->pictureBox3->Location = System::Drawing::Point(331, 58);
 			this->pictureBox3->Name = L"pictureBox3";
 			this->pictureBox3->Size = System::Drawing::Size(98, 94);
@@ -105,6 +102,7 @@ namespace KR {
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Let`s go!";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &KRYNDACH::button1_Click);
 			// 
 			// label1
 			// 
@@ -138,5 +136,23 @@ namespace KR {
 
 		}
 #pragma endregion
-	};
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		Random^ rnd = gcnew Random();
+
+		array<String^>^ names = gcnew array<String^>{
+			"apelsin",
+			"kavun",
+			"kivi"
+		};
+
+		System::Resources::ResourceManager^ rm =
+			gcnew System::Resources::ResourceManager("KR.KRYNDACH", this->GetType()->Assembly);
+
+		pictureBox1->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
+		pictureBox2->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
+		pictureBox3->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
+	}
+
+
+};
 }

@@ -132,11 +132,6 @@
       <DependentUpon>KRYNDACH.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\..\..\Pictures\apelsin.png.jpg" />
-    <Image Include="..\..\..\..\..\..\Pictures\kavun.png.png" />
-    <Image Include="..\..\..\..\..\..\Pictures\kivi.png.jpg" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
