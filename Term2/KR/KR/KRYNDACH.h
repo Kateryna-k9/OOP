@@ -148,9 +148,31 @@ namespace KR {
 		System::Resources::ResourceManager^ rm =
 			gcnew System::Resources::ResourceManager("KR.KRYNDACH", this->GetType()->Assembly);
 
-		pictureBox1->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
-		pictureBox2->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
-		pictureBox3->Image = (Image^)rm->GetObject(names[rnd->Next(0, 3)]);
+		// Випали значення
+		int a = rnd->Next(0, 3);
+		int b = rnd->Next(0, 3);
+		int c = rnd->Next(0, 3);
+
+		// Встановлюємо картинки
+		pictureBox1->Image = (Image^)rm->GetObject(names[a]);
+		pictureBox2->Image = (Image^)rm->GetObject(names[b]);
+		pictureBox3->Image = (Image^)rm->GetObject(names[c]);
+		int score = 0;
+
+		if (a == b && b == c)
+		{
+			if (a == 0)        // апельсин
+				score = 300;
+			else if (a == 1)   // кавун
+				score = 200;
+			else if (a == 2)   // ківі
+				score = 100;
+		}
+		else
+		{
+			score = 0;
+		}
+		label1->Text = "You have: " + score.ToString() + " points";
 	}
 
 
