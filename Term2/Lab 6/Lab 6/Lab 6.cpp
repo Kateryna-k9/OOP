@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    const int SIZE = 100;
+    const int SIZE = 10;
 
     while (true)
     {
