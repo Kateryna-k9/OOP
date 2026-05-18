@@ -1,8 +1,11 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <cstdio>
+#include <iomanip>
+#include <cstring>
 
 using namespace std;
 
@@ -16,15 +19,15 @@ struct Component {
 void input(Component& c);
 void randomFill(Component& c);
 
-void writeFromKeyboard(const char* filename);
-void writeRandom(const char* filename);
+void writeFromKeyboard();
+void writeRandom();
 
-void addToBeginning(const char* filename);
-void addToEnd(const char* filename);
+void addToBeginning();
+void addToEnd();
 
-void printOne(const char* filename);
-void printAll(const char* filename);
+void printOne();
+void printAll();
 
-void editRecord(const char* filename);
+void editRecord();
 
 void printComponent(Component c);

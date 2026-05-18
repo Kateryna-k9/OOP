@@ -31,11 +31,14 @@ void randomFill(Component& c) {
     c.quantity = rand() % 20 + 1;
 }
 
-void writeFromKeyboard(const char* filename) {
+void writeFromKeyboard() {
 
-    ofstream file(filename, ios::binary);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "wb");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -53,19 +56,22 @@ void writeFromKeyboard(const char* filename) {
 
         input(c);
 
-        file.write((char*)&c, sizeof(Component));
+        fwrite(&c, sizeof(Component), 1, file);
     }
 
-    file.close();
+    fclose(file);
 
     cout << "Data written to file!\n";
 }
 
-void writeRandom(const char* filename) {
+void writeRandom() {
 
-    ofstream file(filename, ios::binary);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "wb");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -78,46 +84,52 @@ void writeRandom(const char* filename) {
 
         randomFill(c);
 
-        file.write((char*)&c, sizeof(Component));
+        fwrite(&c, sizeof(Component), 1, file);
     }
 
-    file.close();
+    fclose(file);
 
     cout << "Random data written!\n";
 }
 
-void addToBeginning(const char* filename) {
+void addToBeginning() {
 
-    ifstream fin(filename, ios::binary);
+    FILE* file;
+    FILE* temp;
 
-    ofstream temp("temp.dat", ios::binary);
+    file = fopen("components.dat", "rb");
+    temp = fopen("temp.dat", "wb");
 
     Component c;
 
     cout << "Enter new record:\n";
+
     input(c);
 
-    temp.write((char*)&c, sizeof(Component));
+    fwrite(&c, sizeof(Component), 1, temp);
 
-    while (fin.read((char*)&c, sizeof(Component))) {
+    while (fread(&c, sizeof(Component), 1, file)) {
 
-        temp.write((char*)&c, sizeof(Component));
+        fwrite(&c, sizeof(Component), 1, temp);
     }
 
-    fin.close();
-    temp.close();
+    fclose(file);
+    fclose(temp);
 
-    remove(filename);
-    rename("temp.dat", filename);
+    remove("components.dat");
+    rename("temp.dat", "components.dat");
 
     cout << "Record added to beginning!\n";
 }
 
-void addToEnd(const char* filename) {
+void addToEnd() {
 
-    ofstream file(filename, ios::binary | ios::app);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "ab");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -128,9 +140,9 @@ void addToEnd(const char* filename) {
 
     input(c);
 
-    file.write((char*)&c, sizeof(Component));
+    fwrite(&c, sizeof(Component), 1, file);
 
-    file.close();
+    fclose(file);
 
     cout << "Record added to end!\n";
 }
@@ -144,11 +156,14 @@ void printComponent(Component c) {
         << endl;
 }
 
-void printOne(const char* filename) {
+void printOne() {
 
-    ifstream file(filename, ios::binary);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "rb");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -160,9 +175,9 @@ void printOne(const char* filename) {
 
     Component c;
 
-    file.seekg((number - 1) * sizeof(Component), ios::beg);
+    fseek(file, (number - 1) * sizeof(Component), SEEK_SET);
 
-    if (file.read((char*)&c, sizeof(Component))) {
+    if (fread(&c, sizeof(Component), 1, file)) {
 
         cout << "\n---------------------------------------------\n";
 
@@ -174,17 +189,21 @@ void printOne(const char* filename) {
         printComponent(c);
     }
     else {
+
         cout << "Record not found!\n";
     }
 
-    file.close();
+    fclose(file);
 }
 
-void printAll(const char* filename) {
+void printAll() {
 
-    ifstream file(filename, ios::binary);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "rb");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -198,19 +217,22 @@ void printAll(const char* filename) {
         << setw(12) << "Value"
         << setw(10) << "Qty" << endl;
 
-    while (file.read((char*)&c, sizeof(Component))) {
+    while (fread(&c, sizeof(Component), 1, file)) {
 
         printComponent(c);
     }
 
-    file.close();
+    fclose(file);
 }
 
-void editRecord(const char* filename) {
+void editRecord() {
 
-    fstream file(filename, ios::binary | ios::in | ios::out);
+    FILE* file;
 
-    if (!file) {
+    file = fopen("components.dat", "rb+");
+
+    if (file == NULL) {
+
         cout << "File error!\n";
         return;
     }
@@ -222,13 +244,13 @@ void editRecord(const char* filename) {
 
     Component c;
 
-    file.seekg((number - 1) * sizeof(Component), ios::beg);
+    fseek(file, (number - 1) * sizeof(Component), SEEK_SET);
 
-    if (!file.read((char*)&c, sizeof(Component))) {
+    if (!fread(&c, sizeof(Component), 1, file)) {
 
         cout << "Record not found!\n";
 
-        file.close();
+        fclose(file);
 
         return;
     }
@@ -241,11 +263,11 @@ void editRecord(const char* filename) {
 
     input(c);
 
-    file.seekp((number - 1) * sizeof(Component), ios::beg);
+    fseek(file, (number - 1) * sizeof(Component), SEEK_SET);
 
-    file.write((char*)&c, sizeof(Component));
+    fwrite(&c, sizeof(Component), 1, file);
 
-    file.close();
+    fclose(file);
 
     cout << "Record changed!\n";
 }

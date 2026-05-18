@@ -1,17 +1,6 @@
-// Lab 7.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
-#include <ctime>
 #include "Header.h"
 
-using namespace std;
-
 int main() {
-
-    srand(time(0));
-
-    const char* filename = "components.dat";
 
     int choice;
 
@@ -34,31 +23,31 @@ int main() {
         switch (choice) {
 
         case 1:
-            writeFromKeyboard(filename);
+            writeFromKeyboard();
             break;
 
         case 2:
-            writeRandom(filename);
+            writeRandom();
             break;
 
         case 3:
-            addToBeginning(filename);
+            addToBeginning();
             break;
 
         case 4:
-            addToEnd(filename);
+            addToEnd();
             break;
 
         case 5:
-            printOne(filename);
+            printOne();
             break;
 
         case 6:
-            printAll(filename);
+            printAll();
             break;
 
         case 7:
-            editRecord(filename);
+            editRecord();
             break;
 
         case 8:
