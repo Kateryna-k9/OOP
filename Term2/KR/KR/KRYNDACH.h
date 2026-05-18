@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Header.h"
 namespace KR {
 
 	using namespace System;
@@ -8,6 +8,7 @@ namespace KR {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+
 
 	/// <summary>
 	/// Summary for KRYNDACH
@@ -385,7 +386,7 @@ namespace KR {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		Random^ rnd = gcnew Random();
+		
 
 		array<String^>^ names = gcnew array<String^>{
 			"apelsin",
@@ -396,34 +397,28 @@ namespace KR {
 		System::Resources::ResourceManager^ rm =
 			gcnew System::Resources::ResourceManager("KR.KRYNDACH", this->GetType()->Assembly);
 
-		// Випали значення
-		int a = rnd->Next(0, 3);
-		int b = rnd->Next(0, 3);
-		int c = rnd->Next(0, 3);
+		int numbers[3];
+
+		KR::FillIndexes(numbers, 3);
+
+		int a = *(numbers);
+		int b = *(numbers + 1);
+		int c = *(numbers + 2);
 
 		// Встановлюємо картинки
 		pictureBox1->Image = (Image^)rm->GetObject(names[a]);
 		pictureBox2->Image = (Image^)rm->GetObject(names[b]);
 		pictureBox3->Image = (Image^)rm->GetObject(names[c]);
-		int score = 0;
 
-		if (a == b && b == c)
-		{
-			if (a == 0)        // апельсин
-				score = 300;
-			else if (a == 1)   // кавун
-				score = 200;
-			else if (a == 2)   // ківі
-				score = 100;
-		}
-		else
-		{
-			score = 0;
-		}
+		int score = KR::CheckWin(a, b, c);
 
 		totalScore += score;
 
-		label1->Text = "You have: " + totalScore.ToString() + " points";
+		char* text = KR::CreateMessage(totalScore);
+
+		label1->Text = gcnew String(text);
+
+		delete[] text;
 	}
 
 
