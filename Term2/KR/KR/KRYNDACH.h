@@ -1,5 +1,6 @@
 #pragma once
 #include "Header.h"
+#include <cstring>
 namespace KR {
 
 	using namespace System;
@@ -18,10 +19,35 @@ namespace KR {
 	private:
 		int totalScore = 0;
 
+
 	public:
 		KRYNDACH(void)
 		{
 			InitializeComponent();
+
+			KR::PrizeInfo prizes[3];
+
+			strcpy_s(prizes[0].fruit, "");
+			prizes[0].count = 3;
+			prizes[0].points = 100;
+
+			strcpy_s(prizes[1].fruit, "");
+			prizes[1].count = 3;
+			prizes[1].points = 200;
+
+			strcpy_s(prizes[2].fruit, "");
+			prizes[2].count = 3;
+			prizes[2].points = 300;
+
+			KR::ShowPrizeInfo(prizes, label3, label4, label5);
+
+			KR::WriteToFile();
+
+			char* text = KR::ReadFromFile();
+
+			label2->Text = gcnew String(text);
+
+			delete[] text; // МОЯ ФУНКЦІЯ (ФАЙЛИ)
 			//
 			//TODO: Add the constructor code here
 			//
@@ -55,14 +81,14 @@ namespace KR {
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::PictureBox^ pictureBox12;
-	private: System::Windows::Forms::PictureBox^ pictureBox11;
+
+
 	private: System::Windows::Forms::PictureBox^ pictureBox10;
-	private: System::Windows::Forms::PictureBox^ pictureBox9;
-	private: System::Windows::Forms::PictureBox^ pictureBox8;
+
+
 	private: System::Windows::Forms::PictureBox^ pictureBox7;
-	private: System::Windows::Forms::PictureBox^ pictureBox6;
-	private: System::Windows::Forms::PictureBox^ pictureBox5;
+
+
 	private: System::Windows::Forms::PictureBox^ pictureBox4;
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Label^ label4;
@@ -87,14 +113,8 @@ namespace KR {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->pictureBox12 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox11 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox10 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox9 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox8 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox7 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox6 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -105,14 +125,8 @@ namespace KR {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox12))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox11))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox10))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox9))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox8))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
@@ -135,14 +149,8 @@ namespace KR {
 			this->tabPage1->Controls->Add(this->label5);
 			this->tabPage1->Controls->Add(this->label4);
 			this->tabPage1->Controls->Add(this->label3);
-			this->tabPage1->Controls->Add(this->pictureBox12);
-			this->tabPage1->Controls->Add(this->pictureBox11);
 			this->tabPage1->Controls->Add(this->pictureBox10);
-			this->tabPage1->Controls->Add(this->pictureBox9);
-			this->tabPage1->Controls->Add(this->pictureBox8);
 			this->tabPage1->Controls->Add(this->pictureBox7);
-			this->tabPage1->Controls->Add(this->pictureBox6);
-			this->tabPage1->Controls->Add(this->pictureBox5);
 			this->tabPage1->Controls->Add(this->pictureBox4);
 			this->tabPage1->Controls->Add(this->label1);
 			this->tabPage1->Controls->Add(this->button1);
@@ -160,55 +168,32 @@ namespace KR {
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label5->Location = System::Drawing::Point(214, 277);
+			this->label5->Location = System::Drawing::Point(99, 277);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(112, 19);
+			this->label5->Size = System::Drawing::Size(0, 19);
 			this->label5->TabIndex = 17;
-			this->label5->Text = L"-->  300 points";
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label4->Location = System::Drawing::Point(214, 229);
+			this->label4->Location = System::Drawing::Point(99, 229);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(112, 19);
+			this->label4->Size = System::Drawing::Size(0, 19);
 			this->label4->TabIndex = 16;
-			this->label4->Text = L"-->  200 points";
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label3->Location = System::Drawing::Point(214, 179);
+			this->label3->Location = System::Drawing::Point(99, 178);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(116, 19);
+			this->label3->Size = System::Drawing::Size(0, 19);
 			this->label3->TabIndex = 15;
-			this->label3->Text = L"-->  100 points ";
-			// 
-			// pictureBox12
-			// 
-			this->pictureBox12->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox12.Image")));
-			this->pictureBox12->Location = System::Drawing::Point(146, 266);
-			this->pictureBox12->Name = L"pictureBox12";
-			this->pictureBox12->Size = System::Drawing::Size(45, 45);
-			this->pictureBox12->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox12->TabIndex = 14;
-			this->pictureBox12->TabStop = false;
-			// 
-			// pictureBox11
-			// 
-			this->pictureBox11->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox11.Image")));
-			this->pictureBox11->Location = System::Drawing::Point(95, 266);
-			this->pictureBox11->Name = L"pictureBox11";
-			this->pictureBox11->Size = System::Drawing::Size(45, 45);
-			this->pictureBox11->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox11->TabIndex = 13;
-			this->pictureBox11->TabStop = false;
 			// 
 			// pictureBox10
 			// 
@@ -220,26 +205,6 @@ namespace KR {
 			this->pictureBox10->TabIndex = 12;
 			this->pictureBox10->TabStop = false;
 			// 
-			// pictureBox9
-			// 
-			this->pictureBox9->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox9.Image")));
-			this->pictureBox9->Location = System::Drawing::Point(145, 215);
-			this->pictureBox9->Name = L"pictureBox9";
-			this->pictureBox9->Size = System::Drawing::Size(45, 45);
-			this->pictureBox9->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox9->TabIndex = 11;
-			this->pictureBox9->TabStop = false;
-			// 
-			// pictureBox8
-			// 
-			this->pictureBox8->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox8.Image")));
-			this->pictureBox8->Location = System::Drawing::Point(95, 215);
-			this->pictureBox8->Name = L"pictureBox8";
-			this->pictureBox8->Size = System::Drawing::Size(45, 45);
-			this->pictureBox8->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox8->TabIndex = 10;
-			this->pictureBox8->TabStop = false;
-			// 
 			// pictureBox7
 			// 
 			this->pictureBox7->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox7.Image")));
@@ -249,26 +214,6 @@ namespace KR {
 			this->pictureBox7->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox7->TabIndex = 9;
 			this->pictureBox7->TabStop = false;
-			// 
-			// pictureBox6
-			// 
-			this->pictureBox6->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox6.Image")));
-			this->pictureBox6->Location = System::Drawing::Point(145, 164);
-			this->pictureBox6->Name = L"pictureBox6";
-			this->pictureBox6->Size = System::Drawing::Size(45, 45);
-			this->pictureBox6->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox6->TabIndex = 8;
-			this->pictureBox6->TabStop = false;
-			// 
-			// pictureBox5
-			// 
-			this->pictureBox5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.Image")));
-			this->pictureBox5->Location = System::Drawing::Point(94, 164);
-			this->pictureBox5->Name = L"pictureBox5";
-			this->pictureBox5->Size = System::Drawing::Size(45, 45);
-			this->pictureBox5->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox5->TabIndex = 7;
-			this->pictureBox5->TabStop = false;
 			// 
 			// pictureBox4
 			// 
@@ -353,8 +298,6 @@ namespace KR {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(463, 204);
 			this->label2->TabIndex = 0;
-			this->label2->Text = L"Made by student Kryndach Kateryna, student of group KN-1225a, National Technical "
-				L"University \"Kharkiv Polytechnic Institute\"";
 			// 
 			// KRYNDACH
 			// 
@@ -368,14 +311,8 @@ namespace KR {
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabPage1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox12))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox11))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox10))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox9))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox8))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -412,13 +349,15 @@ namespace KR {
 
 		int score = KR::CheckWin(a, b, c);
 
-		totalScore += score;
+		totalScore = KR::AddScore(totalScore, score);
 
 		char* text = KR::CreateMessage(totalScore);
 
 		label1->Text = gcnew String(text);
 
 		delete[] text;
+
+		
 	}
 
 
