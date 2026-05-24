@@ -22,7 +22,7 @@ int KR::CheckWin(int a, int b, int c)
 
 using namespace System;
 
-void KR::FillIndexes(int* numbers, int size)
+void KR::FillIndexes(int* numbers, int size) // МАСИВ ПОКАЖЧИКІВ
 {
     Random^ rnd = gcnew Random();
 
@@ -32,7 +32,7 @@ void KR::FillIndexes(int* numbers, int size)
     }
 }
 
-char* KR::CreateMessage(int score)
+char* KR::CreateMessage(int score) // РЯДКИ
 {
     char* text = new char[50];
 
@@ -41,7 +41,7 @@ char* KR::CreateMessage(int score)
     return text;
 }
 
-void KR::WriteToFile()
+void KR::WriteToFile() // ФАЙЛИ
 {
     FILE* file = fopen("author.txt", "w");
 
@@ -57,7 +57,7 @@ void KR::WriteToFile()
     }
 }
 
-char* KR::ReadFromFile()
+char* KR::ReadFromFile() // ФАЙЛИ
 {
     FILE* file = fopen("author.txt", "r");
 
@@ -80,7 +80,7 @@ char* KR::ReadFromFile()
     return text;
 }
 
-void KR::ShowPrizeInfo(
+void KR::ShowPrizeInfo( // СТРУКТУРИ
     PrizeInfo* prizes,
     System::Windows::Forms::Label^ l1,
     System::Windows::Forms::Label^ l2,
@@ -112,7 +112,7 @@ void KR::ShowPrizeInfo(
         " points";
 }
 
-int KR::AddScore(int totalScore, int score)
+int KR::AddScore(int totalScore, int score) // РЕКУРСІЯ
 {
     if (score == 0)
         return totalScore;

@@ -94,6 +94,7 @@ namespace KR {
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label3;
 
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -172,7 +173,7 @@ namespace KR {
 				static_cast<System::Byte>(204)));
 			this->label5->Location = System::Drawing::Point(99, 277);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(0, 19);
+			this->label5->Size = System::Drawing::Size(0, 24);
 			this->label5->TabIndex = 17;
 			// 
 			// label4
@@ -182,7 +183,7 @@ namespace KR {
 				static_cast<System::Byte>(204)));
 			this->label4->Location = System::Drawing::Point(99, 229);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(0, 19);
+			this->label4->Size = System::Drawing::Size(0, 24);
 			this->label4->TabIndex = 16;
 			// 
 			// label3
@@ -192,7 +193,7 @@ namespace KR {
 				static_cast<System::Byte>(204)));
 			this->label3->Location = System::Drawing::Point(99, 178);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(0, 19);
+			this->label3->Size = System::Drawing::Size(0, 24);
 			this->label3->TabIndex = 15;
 			// 
 			// pictureBox10
