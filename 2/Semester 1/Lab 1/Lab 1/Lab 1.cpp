@@ -10,7 +10,9 @@ int main()
 {
     Component component;
 
-    cout << component.getType() << endl;
+    component.setDesignation("RT-11-24");
+
+    cout << "Designation: " << component.getDesignation() << endl;
 
     return 0;
 }
