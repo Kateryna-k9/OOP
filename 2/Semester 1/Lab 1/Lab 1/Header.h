@@ -13,4 +13,6 @@ private:
 public:
 	Component();
 
+	char getType() const;
+
 };

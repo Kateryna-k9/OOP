@@ -7,3 +7,8 @@ Component::Component()
     nominal = 0;
     quantity = 0;
 }
+
+char Component::getType() const
+{
+    return type;
+}
