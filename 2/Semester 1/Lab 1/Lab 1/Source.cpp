@@ -1,4 +1,7 @@
 #include "Header.h"
+#include <iostream>
+
+using namespace std;
 
 Component::Component()
 {
@@ -54,4 +57,28 @@ void Component::setDesignation(const char* newDesignation)
     }
 
     designation[i] = '\0';
+}
+
+Component::Component(const char* newDesignation, char newType, double newNominal, int newQuantity)
+{
+    setDesignation(newDesignation);
+    type = newType;
+    nominal = newNominal;
+    quantity = newQuantity;
+}
+
+Component::Component(const Component& other)
+{
+    setDesignation(other.designation);
+    type = other.type;
+    nominal = other.nominal;
+    quantity = other.quantity;
+}
+
+void Component::show() const
+{
+    cout << designation << "\t"
+        << type << "\t"
+        << nominal << "\t"
+        << quantity << endl;
 }

@@ -8,11 +8,9 @@ using namespace std;
 
 int main()
 {
-    Component component;
+    Component component("RT-11-24", 'R', 100000, 12);
 
-    component.setDesignation("RT-11-24");
-
-    cout << "Designation: " << component.getDesignation() << endl;
+    component.show();
 
     return 0;
 }

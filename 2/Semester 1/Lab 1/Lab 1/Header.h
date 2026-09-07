@@ -12,6 +12,8 @@ private:
 
 public:
 	Component();
+	Component(const char* newDesignation, char newType, double newNominal, int newQuantity);
+	Component(const Component& other);
 
 	char getType() const;
 	const char* getDesignation() const;
@@ -22,5 +24,7 @@ public:
 	void setDesignation(const char* newDesignation);
 	void setType(char newType);
 	void setQuantity(int newQuantity);
+
+	void show() const;
 
 };
