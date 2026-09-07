@@ -10,4 +10,7 @@ private:
 	double nominal;
 	int quantity;
 
+public:
+	Component();
+
 };
