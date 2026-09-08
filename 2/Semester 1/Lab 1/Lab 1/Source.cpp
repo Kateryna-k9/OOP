@@ -1,5 +1,6 @@
 #include "Header.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -77,8 +78,10 @@ Component::Component(const Component& other)
 
 void Component::show() const
 {
-    cout << designation << "\t"
-        << type << "\t"
-        << nominal << "\t"
-        << quantity << endl;
+    cout << left
+        << setw(15) << designation
+        << setw(10) << type
+        << setw(15) << nominal
+        << setw(10) << quantity
+        << endl;
 }

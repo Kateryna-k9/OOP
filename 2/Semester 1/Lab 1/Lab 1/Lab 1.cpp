@@ -10,6 +10,9 @@ int main()
 {
     Component components[3];
 
+    cout << "Designation    Type    Nominal    Quantity" << endl;
+    cout << "------------------------------------------" << endl;
+
     for (int i = 0; i < 3; i++)
     {
         components[i].show();
