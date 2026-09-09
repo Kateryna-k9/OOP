@@ -27,9 +27,9 @@ int main()
 
     cout << "Test data file created." << endl;
 
-    Component components[3];
+    Component* components = new Component[3];
 
-    Component componentsWithParameters[3];
+    Component* componentsWithParameters = new Component[3];
 
     fopen_s(&f, "data.txt", "r");
 
@@ -44,28 +44,23 @@ int main()
     double nominal;
     int quantity;
 
-   
-
     for (int i = 0; i < 3; i++)
     {
         fscanf_s(f, "%19s %c %lf %d",
             designation, (unsigned)_countof(designation),
             &type, 1, &nominal, &quantity);
 
-        componentsWithParameters[i].setDesignation(designation);
-        componentsWithParameters[i].setType(type);
-        componentsWithParameters[i].setNominal(nominal);
-        componentsWithParameters[i].setQuantity(quantity);
+        (*(componentsWithParameters + i)) =
+            Component(designation, type, nominal, quantity);
     }
 
     fclose(f);
 
-    Component componentsCopy[3] =
-    {
-        Component(componentsWithParameters[0]),
-        Component(componentsWithParameters[1]),
-        Component(componentsWithParameters[2])
-    };
+    Component* componentsCopy = new Component[3];
+
+    *(componentsCopy) = Component(*(componentsWithParameters));
+    *(componentsCopy + 1) = Component(*(componentsWithParameters + 1));
+    *(componentsCopy + 2) = Component(*(componentsWithParameters + 2));
 
     int choice;
   
@@ -91,7 +86,7 @@ int main()
 
             for (int i = 0; i < 3; i++)
             {
-                componentsWithParameters[i].show();
+                (*(componentsWithParameters + i)).show();
             }
         }
 
@@ -123,7 +118,7 @@ int main()
                 cout << "Enter new designation: ";
                 cin >> newDesignation;
 
-                componentsWithParameters[number - 1].setDesignation(newDesignation);
+                (*(componentsWithParameters + number - 1)).setDesignation(newDesignation);
             }
            
 
@@ -134,7 +129,7 @@ int main()
                 cout << "Enter new type: ";
                 cin >> newType;
 
-                componentsWithParameters[number - 1].setType(newType);
+                (*(componentsWithParameters + number - 1)).setType(newType);
             }
             else if (parameter == 3)
             {
@@ -143,7 +138,7 @@ int main()
                 cout << "Enter new nominal: ";
                 cin >> newNominal;
 
-                componentsWithParameters[number - 1].setNominal(newNominal);
+                (*(componentsWithParameters + number - 1)).setNominal(newNominal);
             }
             else if (parameter == 4)
             {
@@ -152,7 +147,7 @@ int main()
                 cout << "Enter new quantity: ";
                 cin >> newQuantity;
 
-                componentsWithParameters[number - 1].setQuantity(newQuantity);
+                (*(componentsWithParameters + number - 1)).setQuantity(newQuantity);
             }
 
             else
@@ -175,16 +170,16 @@ int main()
 
             cout << "\nData of component:" << endl;
             cout << "Designation: "
-                << componentsWithParameters[number - 1].getDesignation() << endl;
+                << (*(componentsWithParameters + number - 1)).getDesignation() << endl;
 
             cout << "Type: "
-                << componentsWithParameters[number - 1].getType() << endl;
+                << (*(componentsWithParameters + number - 1)).getType() << endl;
 
             cout << "Nominal: "
-                << componentsWithParameters[number - 1].getNominal() << endl;
+                << (*(componentsWithParameters + number - 1)).getNominal() << endl;
 
             cout << "Quantity: "
-                << componentsWithParameters[number - 1].getQuantity() << endl;
+                << (*(componentsWithParameters + number - 1)).getQuantity() << endl;
 
         }
 
@@ -196,7 +191,7 @@ int main()
 
             for (int i = 0; i < 3; i++)
             {
-                componentsCopy[i].show();
+                (*(componentsCopy + i)).show();
             }
         }
 
@@ -208,7 +203,7 @@ int main()
 
             for (int i = 0; i < 3; i++)
             {
-                components[i].show();
+                (*(components + i)).show();
             }
             }
 
@@ -222,6 +217,10 @@ int main()
             cout << "Invalid choice." << endl;
         }
     }
+
+    delete[] components;
+    delete[] componentsWithParameters;
+    delete[] componentsCopy;
 
     return 0;
 }
