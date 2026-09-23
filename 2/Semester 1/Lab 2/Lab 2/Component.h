@@ -28,23 +28,23 @@ public:
 
     void show() const;
 
-    // Перевантаження як функції-члени
+    
     Component& operator=(const Component& other);
     bool operator==(const Component& other) const;
     Component operator+(const Component& other) const;
 
-    // [] - довжина char*
+    
     int operator[](const char* text) const;
 
-    // () - ініціалізація об'єкта
+    
     void operator()(const char* newDesignation, char newType,
         double newNominal, int newQuantity);
 
-    // Дружні функції
+    
     friend bool operator==(const Component& left, const Component& right);
     friend Component operator+(const Component& left, const Component& right);
 
-    // Потокове введення/виведення
+    
     friend std::ostream& operator<<(std::ostream& out, const Component& component);
     friend std::istream& operator>>(std::istream& in, Component& component);
 };

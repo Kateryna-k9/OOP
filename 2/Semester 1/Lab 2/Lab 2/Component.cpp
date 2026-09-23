@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Конструктор за замовчуванням
+
 Component::Component()
 {
     designation[0] = '\0';
@@ -15,7 +15,7 @@ Component::Component()
     quantity = 0;
 }
 
-// Конструктор з параметрами
+
 Component::Component(const char* newDesignation, char newType,
     double newNominal, int newQuantity)
 {
@@ -25,7 +25,7 @@ Component::Component(const char* newDesignation, char newType,
     quantity = newQuantity;
 }
 
-// Конструктор копіювання
+
 Component::Component(const Component& other)
 {
     setDesignation(other.designation);
@@ -34,7 +34,7 @@ Component::Component(const Component& other)
     quantity = other.quantity;
 }
 
-// Getters
+
 char Component::getType() const
 {
     return type;
@@ -55,7 +55,7 @@ int Component::getQuantity() const
     return quantity;
 }
 
-// Setters
+
 void Component::setNominal(double newNominal)
 {
     nominal = newNominal;
@@ -84,7 +84,7 @@ void Component::setQuantity(int newQuantity)
     quantity = newQuantity;
 }
 
-// Виведення інформації про компонент
+
 void Component::show() const
 {
     cout << left
@@ -96,9 +96,7 @@ void Component::show() const
 }
 
 
-// =====================================================
-// ОПЕРАТОР =
-// =====================================================
+
 
 Component& Component::operator=(const Component& other)
 {
@@ -114,9 +112,7 @@ Component& Component::operator=(const Component& other)
 }
 
 
-// =====================================================
-// ОПЕРАТОР == ЯК ФУНКЦІЯ-ЧЛЕН
-// =====================================================
+
 
 bool Component::operator==(const Component& other) const
 {
@@ -145,9 +141,7 @@ bool Component::operator==(const Component& other) const
 }
 
 
-// =====================================================
-// ОПЕРАТОР + ЯК ФУНКЦІЯ-ЧЛЕН
-// =====================================================
+
 
 Component Component::operator+(const Component& other) const
 {
@@ -162,9 +156,7 @@ Component Component::operator+(const Component& other) const
 }
 
 
-// =====================================================
-// ОПЕРАТОР [] - ДОВЖИНА CHAR*
-// =====================================================
+
 
 int Component::operator[](const char* text) const
 {
@@ -186,9 +178,7 @@ int Component::operator[](const char* text) const
 }
 
 
-// =====================================================
-// ОПЕРАТОР () - ІНІЦІАЛІЗАЦІЯ
-// =====================================================
+
 
 void Component::operator()(const char* newDesignation, char newType,
     double newNominal, int newQuantity)
@@ -200,9 +190,7 @@ void Component::operator()(const char* newDesignation, char newType,
 }
 
 
-// =====================================================
-// ДРУЖНІЙ ОПЕРАТОР ==
-// =====================================================
+
 
 bool operator==(const Component& left, const Component& right)
 {
@@ -231,9 +219,7 @@ bool operator==(const Component& left, const Component& right)
 }
 
 
-// =====================================================
-// ДРУЖНІЙ ОПЕРАТОР +
-// =====================================================
+
 
 Component operator+(const Component& left, const Component& right)
 {
@@ -248,9 +234,7 @@ Component operator+(const Component& left, const Component& right)
 }
 
 
-// =====================================================
-// ОПЕРАТОР <<
-// =====================================================
+
 
 ostream& operator<<(ostream& out, const Component& component)
 {
@@ -264,9 +248,6 @@ ostream& operator<<(ostream& out, const Component& component)
 }
 
 
-// =====================================================
-// ОПЕРАТОР >>
-// =====================================================
 
 istream& operator>>(istream& in, Component& component)
 {
