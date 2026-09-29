@@ -90,8 +90,6 @@ void Component::show() const
 
 
 
-
-
 bool Component::operator==(const Component& other) const
 {
     if (type != other.type)
@@ -126,9 +124,6 @@ bool Component::operator==(const Component& other) const
 
 
 
-
-
-
 Component& Component::operator=(const Component& other)
 {
     if (this != &other)
@@ -145,8 +140,6 @@ Component& Component::operator=(const Component& other)
 
 
 
-
-
 Component Component::operator+(const Component& other) const
 {
     Component result;
@@ -158,7 +151,6 @@ Component Component::operator+(const Component& other) const
 
     return result;
 }
-
 
 
 
@@ -224,7 +216,6 @@ bool operator==(const Component& first, const Component& second)
 
 
 
-
 Component operator+(const Component& first, const Component& second)
 {
     Component result;
@@ -239,7 +230,6 @@ Component operator+(const Component& first, const Component& second)
 
 
 
-
 ostream& operator<<(ostream& out, const Component& component)
 {
     out << "Designation: " << component.designation << endl;
@@ -249,7 +239,6 @@ ostream& operator<<(ostream& out, const Component& component)
 
     return out;
 }
-
 
 
 

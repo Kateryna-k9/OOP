@@ -1,4 +1,4 @@
-// Lab 2.cpp 
+// Lab 2.cpp
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -13,13 +13,13 @@ int main()
 
     Component* componentsWithParameters = new Component[3];
 
-    componentsWithParameters[0] =
+    *(componentsWithParameters) =
         Component("RT-11-24", 'R', 100000, 12);
 
-    componentsWithParameters[1] =
+    *(componentsWithParameters + 1) =
         Component("RT-11-24", 'R', 50000, 10);
 
-    componentsWithParameters[2] =
+    *(componentsWithParameters + 2) =
         Component("CGU-12K", 'C', 17.5, 3);
 
     Component* componentsCopy = new Component[3];
@@ -67,8 +67,8 @@ int main()
 
         else if (choice == 2)
         {
-            if (*(componentsWithParameters) ==
-                *(componentsWithParameters + 1))
+            if ((*(componentsWithParameters)).operator==(
+                *(componentsWithParameters + 1)))
             {
                 cout << "Components are equal." << endl;
             }
@@ -94,8 +94,8 @@ int main()
             Component result;
 
             result =
-                *(componentsWithParameters)+
-                *(componentsWithParameters + 1);
+                (*(componentsWithParameters)).operator+(
+                    *(componentsWithParameters + 1));
 
             cout << "\nResult of member +:" << endl;
             cout << result << endl;
