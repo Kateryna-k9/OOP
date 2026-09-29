@@ -1,11 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "Component.h"
 #include <iostream>
 #include <iomanip>
 
 using namespace std;
-
 
 Component::Component()
 {
@@ -14,7 +11,6 @@ Component::Component()
     nominal = 0;
     quantity = 0;
 }
-
 
 Component::Component(const char* newDesignation, char newType,
     double newNominal, int newQuantity)
@@ -25,7 +21,6 @@ Component::Component(const char* newDesignation, char newType,
     quantity = newQuantity;
 }
 
-
 Component::Component(const Component& other)
 {
     setDesignation(other.designation);
@@ -33,7 +28,6 @@ Component::Component(const Component& other)
     nominal = other.nominal;
     quantity = other.quantity;
 }
-
 
 char Component::getType() const
 {
@@ -54,7 +48,6 @@ int Component::getQuantity() const
 {
     return quantity;
 }
-
 
 void Component::setNominal(double newNominal)
 {
@@ -84,16 +77,54 @@ void Component::setQuantity(int newQuantity)
     quantity = newQuantity;
 }
 
-
 void Component::show() const
 {
     cout << left
         << setw(15) << designation
-        << setw(8) << type
+        << setw(10) << type
         << setw(15) << nominal
         << setw(10) << quantity
         << endl;
 }
+
+
+
+
+
+
+bool Component::operator==(const Component& other) const
+{
+    if (type != other.type)
+    {
+        return false;
+    }
+
+    if (nominal != other.nominal)
+    {
+        return false;
+    }
+
+    if (quantity != other.quantity)
+    {
+        return false;
+    }
+
+    int i = 0;
+
+    while (designation[i] != '\0' || other.designation[i] != '\0')
+    {
+        if (designation[i] != other.designation[i])
+        {
+            return false;
+        }
+
+        i++;
+    }
+
+    return true;
+}
+
+
 
 
 
@@ -112,33 +143,6 @@ Component& Component::operator=(const Component& other)
 }
 
 
-
-
-bool Component::operator==(const Component& other) const
-{
-    const char* first = designation;
-    const char* second = other.designation;
-
-    while (*first != '\0' || *second != '\0')
-    {
-        if (*first != *second)
-        {
-            return false;
-        }
-
-        if (*first == '\0' || *second == '\0')
-        {
-            return false;
-        }
-
-        first++;
-        second++;
-    }
-
-    return type == other.type &&
-        nominal == other.nominal &&
-        quantity == other.quantity;
-}
 
 
 
@@ -160,18 +164,11 @@ Component Component::operator+(const Component& other) const
 
 int Component::operator[](const char* text) const
 {
-    if (text == nullptr)
-    {
-        return 0;
-    }
-
     int length = 0;
-    const char* pointer = text;
 
-    while (*pointer != '\0')
+    while (text[length] != '\0')
     {
         length++;
-        pointer++;
     }
 
     return length;
@@ -180,55 +177,62 @@ int Component::operator[](const char* text) const
 
 
 
-void Component::operator()(const char* newDesignation, char newType,
-    double newNominal, int newQuantity)
+void Component::operator()(const char* newDesignation,
+    char newType, double newNominal, int newQuantity)
 {
     setDesignation(newDesignation);
-    type = newType;
-    nominal = newNominal;
-    quantity = newQuantity;
+    setType(newType);
+    setNominal(newNominal);
+    setQuantity(newQuantity);
 }
 
 
 
 
-bool operator==(const Component& left, const Component& right)
+bool operator==(const Component& first, const Component& second)
 {
-    const char* first = left.designation;
-    const char* second = right.designation;
-
-    while (*first != '\0' || *second != '\0')
+    if (first.type != second.type)
     {
-        if (*first != *second)
-        {
-            return false;
-        }
-
-        if (*first == '\0' || *second == '\0')
-        {
-            return false;
-        }
-
-        first++;
-        second++;
+        return false;
     }
 
-    return left.type == right.type &&
-        left.nominal == right.nominal &&
-        left.quantity == right.quantity;
+    if (first.nominal != second.nominal)
+    {
+        return false;
+    }
+
+    if (first.quantity != second.quantity)
+    {
+        return false;
+    }
+
+    int i = 0;
+
+    while (first.designation[i] != '\0' ||
+        second.designation[i] != '\0')
+    {
+        if (first.designation[i] != second.designation[i])
+        {
+            return false;
+        }
+
+        i++;
+    }
+
+    return true;
 }
 
 
 
 
-Component operator+(const Component& left, const Component& right)
+Component operator+(const Component& first, const Component& second)
 {
     Component result;
 
-    result.setDesignation(left.designation);
-    result.setType(left.type);
-    result.setNominal(left.nominal + right.nominal);
-    result.setQuantity(left.quantity + right.quantity);
+    result.setDesignation(first.designation);
+    result.setType(first.type);
+    result.setNominal(first.nominal + second.nominal);
+    result.setQuantity(first.quantity + second.quantity);
 
     return result;
 }
@@ -238,33 +242,37 @@ Component operator+(const Component& left, const Component& right)
 
 ostream& operator<<(ostream& out, const Component& component)
 {
-    out << left
-        << setw(15) << component.designation
-        << setw(8) << component.type
-        << setw(15) << component.nominal
-        << setw(10) << component.quantity;
+    out << "Designation: " << component.designation << endl;
+    out << "Type: " << component.type << endl;
+    out << "Nominal: " << component.nominal << endl;
+    out << "Quantity: " << component.quantity << endl;
 
     return out;
 }
 
 
 
+
 istream& operator>>(istream& in, Component& component)
 {
-    char designation[20];
-    char type;
-    double nominal;
-    int quantity;
+    char newDesignation[20];
+    char newType;
+    double newNominal;
+    int newQuantity;
 
-    in >> designation >> type >> nominal >> quantity;
+    cout << "Enter designation: ";
+    in >> newDesignation;
 
-    if (in)
-    {
-        component.setDesignation(designation);
-        component.setType(type);
-        component.setNominal(nominal);
-        component.setQuantity(quantity);
-    }
+    cout << "Enter type: ";
+    in >> newType;
+
+    cout << "Enter nominal: ";
+    in >> newNominal;
+
+    cout << "Enter quantity: ";
+    in >> newQuantity;
+
+    component(newDesignation, newType, newNominal, newQuantity);
 
     return in;
 }

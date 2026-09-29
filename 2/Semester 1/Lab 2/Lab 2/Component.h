@@ -12,8 +12,7 @@ private:
 
 public:
     Component();
-    Component(const char* newDesignation, char newType,
-        double newNominal, int newQuantity);
+    Component(const char* newDesignation, char newType, double newNominal, int newQuantity);
     Component(const Component& other);
 
     char getType() const;
@@ -28,9 +27,9 @@ public:
 
     void show() const;
 
-    
-    Component& operator=(const Component& other);
+   
     bool operator==(const Component& other) const;
+    Component& operator=(const Component& other);
     Component operator+(const Component& other) const;
 
     
@@ -41,8 +40,8 @@ public:
         double newNominal, int newQuantity);
 
     
-    friend bool operator==(const Component& left, const Component& right);
-    friend Component operator+(const Component& left, const Component& right);
+    friend bool operator==(const Component& first, const Component& second);
+    friend Component operator+(const Component& first, const Component& second);
 
     
     friend std::ostream& operator<<(std::ostream& out, const Component& component);

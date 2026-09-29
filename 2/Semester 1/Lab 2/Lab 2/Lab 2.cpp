@@ -1,244 +1,190 @@
-// Lab 2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Lab 2.cpp 
 
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Component.h"
 #include <iostream>
-#include <cstdio>
-#include <iomanip>
 
 using namespace std;
 
 int main()
 {
-    
+    Component* components = new Component[3];
 
-    FILE* file = nullptr;
+    Component* componentsWithParameters = new Component[3];
 
-    fopen_s(&file, "data.txt", "w");
+    componentsWithParameters[0] =
+        Component("RT-11-24", 'R', 100000, 12);
 
-    if (file != nullptr)
+    componentsWithParameters[1] =
+        Component("RT-11-24", 'R', 50000, 10);
+
+    componentsWithParameters[2] =
+        Component("CGU-12K", 'C', 17.5, 3);
+
+    Component* componentsCopy = new Component[3];
+
+    *(componentsCopy) =
+        Component(*(componentsWithParameters));
+
+    *(componentsCopy + 1) =
+        Component(*(componentsWithParameters + 1));
+
+    *(componentsCopy + 2) =
+        Component(*(componentsWithParameters + 2));
+
+    int choice;
+
+    while (true)
     {
-        fprintf(file, "RT-11-24 R 100000 12\n");
-        fprintf(file, "RT-11-24 R 50000 10\n");
-        fprintf(file, "CGU-12K C 17.5 3\n");
+        cout << "\n========== MENU ==========" << endl;
+        cout << "1. Show components" << endl;
+        cout << "2. Compare using member ==" << endl;
+        cout << "3. Assign using =" << endl;
+        cout << "4. Add using member +" << endl;
+        cout << "5. Compare using friend ==" << endl;
+        cout << "6. Add using friend +" << endl;
+        cout << "7. Calculate char* length using []" << endl;
+        cout << "8. Initialize using ()" << endl;
+        cout << "9. Show using <<" << endl;
+        cout << "10. Enter using >>" << endl;
+        cout << "0. Exit" << endl;
+        cout << "==========================" << endl;
 
-        fclose(file);
-    }
-
-
-    
-
-    const int size = 3;
-
-    Component* components = new Component[size];
-
-
-    
-
-    fopen_s(&file, "data.txt", "r");
-
-    if (file != nullptr)
-    {
-        char designation[20];
-        char type;
-        double nominal;
-        int quantity;
-
-        int i = 0;
-
-        while (i < size &&
-            fscanf_s(file, "%19s %c %lf %d",
-                designation, 20,
-                &type, 1,
-                &nominal,
-                &quantity) == 4)
-        {
-            (*(components + i))(designation, type, nominal, quantity);
-            i++;
-        }
-
-        fclose(file);
-    }
-
-
-    
-
-    Component* componentsCopy = new Component[size];
-
-    int choice = 0;
-
-    
-
-    while (choice != 10)
-    {
-        cout << "1. Show components\n";
-        cout << "2. Assignment operator =\n";
-        cout << "3. Comparison operator == (member)\n";
-        cout << "4. Addition operator + (member)\n";
-        cout << "5. Comparison operator == (friend)\n";
-        cout << "6. Addition operator + (friend)\n";
-        cout << "7. Operator [] - string length\n";
-        cout << "8. Operator () - initialization\n";
-        cout << "9. Stream operators << and >>\n";
-        cout << "10. Exit\n";
-        cout << "Choose: ";
-
+        cout << "Enter your choice: ";
         cin >> choice;
-
-        cout << endl;
-
-
-       
 
         if (choice == 1)
         {
-            cout << left
-                << setw(15) << "Designation"
-                << setw(8) << "Type"
-                << setw(15) << "Nominal"
-                << setw(10) << "Quantity"
-                << endl;
+            cout << "\nDesignation     Type      Nominal        Quantity" << endl;
+            cout << "-------------------------------------------------" << endl;
 
-            cout << "------------------------------------------------\n";
-
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < 3; i++)
             {
-                cout << *(components + i) << endl;
+                (*(componentsWithParameters + i)).show();
             }
         }
-
-
-       
 
         else if (choice == 2)
         {
-            *(componentsCopy) = *(components);
-
-            cout << "Original component:\n";
-            cout << *(components) << endl;
-
-            cout << "Copied component:\n";
-            cout << *(componentsCopy) << endl;
-        }
-
-
-        
-
-        else if (choice == 3)
-        {
-            if ((*(components)).operator==(*(components + 1)))
+            if (*(componentsWithParameters) ==
+                *(componentsWithParameters + 1))
             {
-                cout << "Components are equal.\n";
+                cout << "Components are equal." << endl;
             }
             else
             {
-                cout << "Components are not equal.\n";
+                cout << "Components are not equal." << endl;
             }
         }
 
-        
+        else if (choice == 3)
+        {
+            *(componentsCopy) =
+                *(componentsWithParameters);
+
+            cout << "Assignment completed." << endl;
+
+            cout << "\nCopied component:" << endl;
+            cout << *(componentsCopy) << endl;
+        }
 
         else if (choice == 4)
         {
             Component result;
 
-            result = (*(components)).operator+(*(components + 1));
+            result =
+                *(componentsWithParameters)+
+                *(componentsWithParameters + 1);
 
-            cout << "Result of member operator +:\n";
+            cout << "\nResult of member +:" << endl;
             cout << result << endl;
         }
 
-
-        
-
         else if (choice == 5)
         {
-            bool equal = operator==(*(components), *(components + 1));
-
-            if (equal)
+            if (operator==(
+                *(componentsWithParameters),
+                *(componentsWithParameters + 1)))
             {
-                cout << "Components are equal.\n";
+                cout << "Components are equal." << endl;
             }
             else
             {
-                cout << "Components are not equal.\n";
+                cout << "Components are not equal." << endl;
             }
         }
-
-
-        
 
         else if (choice == 6)
         {
             Component result;
 
-            result = operator+(*(components), *(components + 1));
+            result =
+                operator+(
+                    *(componentsWithParameters),
+                    *(componentsWithParameters + 1));
 
-            cout << "Result of friend operator +:\n";
+            cout << "\nResult of friend +:" << endl;
             cout << result << endl;
         }
 
-
-        
-
         else if (choice == 7)
         {
-            int length = (*(components))[components->getDesignation()];
+            char text[20];
 
-            cout << "Designation: "
-                << components->getDesignation() << endl;
+            cout << "Enter text: ";
+            cin >> text;
+
+            int length =
+                (*(componentsWithParameters))[text];
 
             cout << "Length: " << length << endl;
         }
 
-
-        
-
         else if (choice == 8)
         {
-            (*(components + 1))(
-                "NEW-COMP",
-                'T',
-                2500,
-                7
-                );
+            cout << "Initializing first component using ()..." << endl;
 
-            cout << "Component after operator () initialization:\n";
-            cout << *(components + 1) << endl;
+            (*(componentsWithParameters))(
+                "NEW-COMP",
+                'X',
+                2500,
+                15);
+
+            cout << "\nUpdated component:" << endl;
+            cout << *(componentsWithParameters) << endl;
         }
 
-
-        
         else if (choice == 9)
         {
-            cout << "Stream output operator << demonstration:\n";
-            cout << *(components) << endl;
-
-            cout << "\nStream input operator >> demonstration.\n";
-            cout << "Enter: designation type nominal quantity\n";
-
-            Component test;
-
-            cin >> test;
-
-            cout << "\nEntered component:\n";
-            cout << test << endl;
+            cout << "\nComponent using <<:" << endl;
+            cout << *(componentsWithParameters) << endl;
         }
 
-
-       
-
-        else if (choice != 10)
+        else if (choice == 10)
         {
-            cout << "Invalid menu item.\n";
+            cout << "\nEnter data for first component:" << endl;
+
+            cin >> *(componentsWithParameters);
+
+            cout << "\nEntered component:" << endl;
+            cout << *(componentsWithParameters) << endl;
+        }
+
+        else if (choice == 0)
+        {
+            cout << "Program finished." << endl;
+            break;
+        }
+
+        else
+        {
+            cout << "Invalid choice." << endl;
         }
     }
 
-
-    
     delete[] components;
+    delete[] componentsWithParameters;
     delete[] componentsCopy;
 
     return 0;
