@@ -1,300 +1,261 @@
-// Lab 2A.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#define _CRT_SECURE_NO_WARNINGS
+// Lab 2A.cpp
 
 #include "RealNumber.h"
+#include "RealNumberArray.h"
 #include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <stdexcept>
 
 using namespace std;
 
 int main()
 {
-    const int size = 4;
+    RealNumber number1(10.5);
+    RealNumber number2(20.3);
 
-    
+    RealNumberArray numbers(5);
 
-    FILE* file = nullptr;
+    numbers.operator[](0) = RealNumber(10.5);
+    numbers.operator[](1) = RealNumber(20.3);
+    numbers.operator[](2) = RealNumber(5.7);
+    numbers.operator[](3) = RealNumber(15.2);
+    numbers.operator[](4) = RealNumber(30.1);
 
-    fopen_s(&file, "data.txt", "w");
+    int choice;
 
-    if (file != nullptr)
+    while (true)
     {
-        fprintf(file, "10.5\n");
-        fprintf(file, "20.3\n");
-        fprintf(file, "10.5\n");
-        fprintf(file, "5.7\n");
+        cout << "\n========== MENU ==========" << endl;
+        cout << "1. Show numbers" << endl;
+        cout << "2. Compare using ==" << endl;
+        cout << "3. Compare using !=" << endl;
+        cout << "4. Compare using <" << endl;
+        cout << "5. Compare using >" << endl;
+        cout << "6. Compare using <=" << endl;
+        cout << "7. Compare using >=" << endl;
+        cout << "8. Addition +" << endl;
+        cout << "9. Subtraction -" << endl;
+        cout << "10. Multiplication *" << endl;
+        cout << "11. Division /" << endl;
+        cout << "12. Prefix ++" << endl;
+        cout << "13. Postfix ++" << endl;
+        cout << "14. Prefix --" << endl;
+        cout << "15. Postfix --" << endl;
+        cout << "16. Assignment =" << endl;
+        cout << "17. Output using <<" << endl;
+        cout << "18. Input using >>" << endl;
+        cout << "19. Find minimum" << endl;
+        cout << "20. Find maximum" << endl;
+        cout << "21. Average" << endl;
+        cout << "22. Access using []" << endl;
+        cout << "23. Object count" << endl;
+        cout << "0. Exit" << endl;
+        cout << "==========================" << endl;
 
-        fclose(file);
-    }
-
-
-    
-
-    RealNumber* numbers = new RealNumber[size];
-
-
-    
-
-    fopen_s(&file, "data.txt", "r");
-
-    if (file != nullptr)
-    {
-        double value;
-        int i = 0;
-
-        while (i < size &&
-            fscanf_s(file, "%lf", &value) == 1)
-        {
-            (numbers + i)->setValue(value);
-
-            i++;
-        }
-
-        fclose(file);
-    }
-
-
-    int choice = 0;
-
-
-    
-
-    while (choice != 12)
-    {
-
-        cout << "1. Show array\n";
-        cout << "2. Test comparison operators\n";
-        cout << "3. Test arithmetic operators\n";
-        cout << "4. Test prefix ++ and --\n";
-        cout << "5. Test postfix ++ and --\n";
-        cout << "6. Test assignment operator =\n";
-        cout << "7. Test stream operators << and >>\n";
-        cout << "8. Test operator []\n";
-        cout << "9. Find minimum and maximum\n";
-        cout << "10. Calculate average\n";
-        cout << "11. Show object count\n";
-        cout << "12. Exit\n";
-
-        cout << "Choose: ";
+        cout << "Enter your choice: ";
         cin >> choice;
-
-        cout << endl;
-
-
-        
 
         if (choice == 1)
         {
-            for (int i = 0; i < size; i++)
+            cout << "\nNumbers:" << endl;
+
+            for (int i = 0; i < numbers.getSize(); i++)
             {
-                cout << "Number " << i + 1
-                    << ": " << *(numbers + i)
+                cout << i << ": "
+                    << numbers.operator[](i)
                     << endl;
             }
         }
 
-
-        
-
         else if (choice == 2)
         {
-            cout << boolalpha;
-
-            cout << "Number 1 == Number 3: "
-                << (*(numbers)).operator==(*(numbers + 2))
-                << endl;
-
-            cout << "Number 1 != Number 2: "
-                << (*(numbers) != *(numbers + 1))
-                << endl;
-
-            cout << "Number 1 < Number 2: "
-                << (*(numbers)).operator<(*(numbers + 1))
-                << endl;
-
-            cout << "Number 2 > Number 1: "
-                << (*(numbers + 1) > *(numbers))
-                << endl;
-
-            cout << "Number 4 <= Number 1: "
-                << (*(numbers + 3)).operator<=(*(numbers))
-                << endl;
-
-            cout << "Number 2 >= Number 1: "
-                << (*(numbers + 1) >= *(numbers))
-                << endl;
-
-            cout << noboolalpha;
+            if (number1 == number2)
+            {
+                cout << "Numbers are equal." << endl;
+            }
+            else
+            {
+                cout << "Numbers are not equal." << endl;
+            }
         }
-
-
-       
 
         else if (choice == 3)
         {
-            try
+            if (number1 != number2)
             {
-                RealNumber a = *(numbers);
-                RealNumber b = *(numbers + 1);
-
-                cout << "Number 1 + Number 2 = "
-                    << a + b << endl;
-
-                cout << "Number 1 - Number 2 = "
-                    << a - b << endl;
-
-                cout << "Number 1 * Number 2 = "
-                    << a * b << endl;
-
-                cout << "Number 1 / Number 2 = "
-                    << a / b << endl;
+                cout << "Numbers are not equal." << endl;
             }
-            catch (const exception& error)
+            else
             {
-                cout << error.what() << endl;
+                cout << "Numbers are equal." << endl;
             }
         }
-
-
-        
 
         else if (choice == 4)
         {
-            RealNumber test = *(numbers);
-
-            cout << "Initial value: "
-                << test << endl;
-
-            cout << "Prefix ++: "
-                << ++test << endl;
-
-            cout << "Prefix --: "
-                << --test << endl;
+            cout << number1 << " < " << number2
+                << " = " << (number1 < number2) << endl;
         }
-
-
-        
 
         else if (choice == 5)
         {
-            RealNumber test = *(numbers);
-
-            cout << "Initial value: "
-                << test << endl;
-
-            cout << "Postfix ++ result: "
-                << test++ << endl;
-
-            cout << "Value after ++: "
-                << test << endl;
-
-            cout << "Postfix -- result: "
-                << test-- << endl;
-
-            cout << "Value after --: "
-                << test << endl;
+            cout << number1 << " > " << number2
+                << " = " << (number1 > number2) << endl;
         }
-
-
-        
 
         else if (choice == 6)
         {
-            RealNumber first;
-            RealNumber second(25.5);
-
-            first = second;
-
-            cout << "First number after assignment: "
-                << first << endl;
+            cout << number1 << " <= " << number2
+                << " = " << (number1 <= number2) << endl;
         }
-
-
-        
 
         else if (choice == 7)
         {
-            RealNumber test;
-
-            cout << "Enter a real number: ";
-
-            cin >> test;
-
-            cout << "You entered: "
-                << test << endl;
+            cout << number1 << " >= " << number2
+                << " = " << (number1 >= number2) << endl;
         }
-
-
-        
 
         else if (choice == 8)
         {
-            cout << "Number 1: "
-                << *(numbers)
-                << endl;
+            RealNumber result = number1 + number2;
 
-            cout << "Access through operator [0]: "
-                << (*(numbers))[0]
-                << endl;
+            cout << "Result: " << result << endl;
         }
-
-
-        
 
         else if (choice == 9)
         {
-            RealNumber minimum =
-                RealNumber::getMin(numbers, size);
+            RealNumber result = number1 - number2;
 
-            RealNumber maximum =
-                RealNumber::getMax(numbers, size);
-
-            cout << "Minimum: "
-                << minimum << endl;
-
-            cout << "Maximum: "
-                << maximum << endl;
+            cout << "Result: " << result << endl;
         }
-
-
-        
 
         else if (choice == 10)
         {
-            double average =
-                RealNumber::getAverage(numbers, size);
+            RealNumber result = number1 * number2;
 
-            cout << "Average: "
-                << average << endl;
+            cout << "Result: " << result << endl;
         }
 
-
-        
-
         else if (choice == 11)
+        {
+            RealNumber result = number1 / number2;
+
+            cout << "Result: " << result << endl;
+        }
+
+        else if (choice == 12)
+        {
+            ++number1;
+
+            cout << "After prefix ++: "
+                << number1 << endl;
+        }
+
+        else if (choice == 13)
+        {
+            RealNumber oldValue = number1++;
+
+            cout << "Old value: "
+                << oldValue << endl;
+
+            cout << "New value: "
+                << number1 << endl;
+        }
+
+        else if (choice == 14)
+        {
+            --number1;
+
+            cout << "After prefix --: "
+                << number1 << endl;
+        }
+
+        else if (choice == 15)
+        {
+            RealNumber oldValue = number1--;
+
+            cout << "Old value: "
+                << oldValue << endl;
+
+            cout << "New value: "
+                << number1 << endl;
+        }
+
+        else if (choice == 16)
+        {
+            number1 = number2;
+
+            cout << "Assignment completed." << endl;
+            cout << "Number 1: " << number1 << endl;
+        }
+
+        else if (choice == 17)
+        {
+            cout << "Number using <<: "
+                << number1 << endl;
+        }
+
+        else if (choice == 18)
+        {
+            cout << "Enter a real number: ";
+            cin >> number1;
+
+            cout << "Entered number: "
+                << number1 << endl;
+        }
+
+        else if (choice == 19)
+        {
+            cout << "Minimum: "
+                << numbers.findMin() << endl;
+        }
+
+        else if (choice == 20)
+        {
+            cout << "Maximum: "
+                << numbers.findMax() << endl;
+        }
+
+        else if (choice == 21)
+        {
+            cout << "Average: "
+                << numbers.average() << endl;
+        }
+
+        else if (choice == 22)
+        {
+            int index;
+
+            cout << "Enter index (0-4): ";
+            cin >> index;
+
+            if (index < 0 || index >= numbers.getSize())
+            {
+                cout << "Invalid index." << endl;
+                continue;
+            }
+
+            cout << "Element: "
+                << numbers.operator[](index)
+                << endl;
+        }
+
+        else if (choice == 23)
         {
             cout << "Number of existing objects: "
                 << RealNumber::getCount()
                 << endl;
         }
 
-
-        
-
-        else if (choice != 12)
+        else if (choice == 0)
         {
-            cout << "Invalid menu item." << endl;
+            cout << "Program finished." << endl;
+            break;
+        }
+
+        else
+        {
+            cout << "Invalid choice." << endl;
         }
     }
-
-
-    
-
-    delete[] numbers;
 
     return 0;
 }

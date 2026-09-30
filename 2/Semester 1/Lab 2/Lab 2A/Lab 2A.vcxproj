@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Lab 2A.cpp" />
     <ClCompile Include="RealNumber.cpp" />
+    <ClCompile Include="RealNumberArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RealNumber.h" />
+    <ClInclude Include="RealNumberArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

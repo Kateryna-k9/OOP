@@ -1,335 +1,141 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "RealNumber.h"
-#include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
-
-
 int RealNumber::count = 0;
-
-
-
 
 RealNumber::RealNumber()
 {
-    value = 0.0;
+    number = 0;
     count++;
 }
 
-
-
-
-RealNumber::RealNumber(double newValue)
+RealNumber::RealNumber(double newNumber)
 {
-    value = newValue;
+    number = newNumber;
     count++;
 }
-
-
 
 RealNumber::RealNumber(const RealNumber& other)
 {
-    value = other.value;
+    number = other.number;
     count++;
 }
-
-
-
 
 RealNumber::~RealNumber()
 {
     count--;
 }
 
-
-
-double RealNumber::getValue() const
+double RealNumber::getNumber() const
 {
-    return value;
+    return number;
 }
 
-
-
-
-void RealNumber::setValue(double newValue)
+void RealNumber::setNumber(double newNumber)
 {
-    value = newValue;
+    number = newNumber;
 }
-
-
-
 
 int RealNumber::getCount()
 {
     return count;
 }
 
-
-
-
 bool RealNumber::operator==(const RealNumber& other) const
 {
-    return value == other.value;
+    return number == other.number;
 }
-
-
-
 
 bool RealNumber::operator<(const RealNumber& other) const
 {
-    return value < other.value;
+    return number < other.number;
 }
-
-
 
 bool RealNumber::operator<=(const RealNumber& other) const
 {
-    return value <= other.value;
+    return number <= other.number;
 }
-
-
-
 
 RealNumber RealNumber::operator+(const RealNumber& other) const
 {
-    return RealNumber(value + other.value);
+    return RealNumber(number + other.number);
 }
-
-
-
 
 RealNumber RealNumber::operator-(const RealNumber& other) const
 {
-    return RealNumber(value - other.value);
+    return RealNumber(number - other.number);
 }
-
-
-
 
 RealNumber RealNumber::operator*(const RealNumber& other) const
 {
-    return RealNumber(value * other.value);
+    return RealNumber(number * other.number);
 }
-
-
-
 
 RealNumber RealNumber::operator/(const RealNumber& other) const
 {
-    if (other.value == 0.0)
-    {
-        throw runtime_error("Division by zero is not allowed.");
-    }
-
-    return RealNumber(value / other.value);
+    return RealNumber(number / other.number);
 }
-
-
-
 
 RealNumber& RealNumber::operator=(const RealNumber& other)
 {
     if (this != &other)
     {
-        value = other.value;
+        number = other.number;
     }
 
     return *this;
 }
 
-
-
-const RealNumber& RealNumber::operator[](int index) const
+bool operator!=(const RealNumber& first, const RealNumber& second)
 {
-    if (index != 0)
-    {
-        throw out_of_range("Index must be 0.");
-    }
-
-    return *this;
+    return first.number != second.number;
 }
 
-
-
-
-RealNumber& RealNumber::operator[](int index)
+bool operator>(const RealNumber& first, const RealNumber& second)
 {
-    if (index != 0)
-    {
-        throw out_of_range("Index must be 0.");
-    }
-
-    return *this;
+    return first.number > second.number;
 }
 
-
-
-
-RealNumber RealNumber::getMin(
-    const RealNumber* numbers,
-    int size)
+bool operator>=(const RealNumber& first, const RealNumber& second)
 {
-    if (size <= 0)
-    {
-        return RealNumber();
-    }
-
-    RealNumber min = *numbers;
-
-    for (int i = 1; i < size; i++)
-    {
-        if ((numbers + i)->value < min.value)
-        {
-            min = *(numbers + i);
-        }
-    }
-
-    return min;
+    return first.number >= second.number;
 }
 
-
-
-
-RealNumber RealNumber::getMax(
-    const RealNumber* numbers,
-    int size)
+RealNumber& operator++(RealNumber& value)
 {
-    if (size <= 0)
-    {
-        return RealNumber();
-    }
-
-    RealNumber max = *numbers;
-
-    for (int i = 1; i < size; i++)
-    {
-        if ((numbers + i)->value > max.value)
-        {
-            max = *(numbers + i);
-        }
-    }
-
-    return max;
+    value.number++;
+    return value;
 }
 
-
-
-
-double RealNumber::getAverage(
-    const RealNumber* numbers,
-    int size)
+RealNumber operator++(RealNumber& value, int)
 {
-    if (size <= 0)
-    {
-        return 0.0;
-    }
-
-    double sum = 0.0;
-
-    for (int i = 0; i < size; i++)
-    {
-        sum += (numbers + i)->value;
-    }
-
-    return sum / size;
+    RealNumber oldValue(value);
+    value.number++;
+    return oldValue;
 }
 
-
-
-
-bool operator!=(
-    const RealNumber& left,
-    const RealNumber& right)
+RealNumber& operator--(RealNumber& value)
 {
-    return !(left == right);
+    value.number--;
+    return value;
 }
 
-
-
-
-bool operator>(
-    const RealNumber& left,
-    const RealNumber& right)
+RealNumber operator--(RealNumber& value, int)
 {
-    return right < left;
+    RealNumber oldValue(value);
+    value.number--;
+    return oldValue;
 }
 
-
-
-
-bool operator>=(
-    const RealNumber& left,
-    const RealNumber& right)
+ostream& operator<<(ostream& out, const RealNumber& value)
 {
-    return !(left < right);
-}
-
-
-
-RealNumber& operator++(RealNumber& number)
-{
-    number.value++;
-
-    return number;
-}
-
-
-
-
-RealNumber operator++(RealNumber& number, int)
-{
-    RealNumber old(number);
-
-    number.value++;
-
-    return old;
-}
-
-
-
-
-RealNumber& operator--(RealNumber& number)
-{
-    number.value--;
-
-    return number;
-}
-
-
-
-
-RealNumber operator--(RealNumber& number, int)
-{
-    RealNumber old(number);
-
-    number.value--;
-
-    return old;
-}
-
-
-
-
-ostream& operator<<(
-    ostream& out,
-    const RealNumber& number)
-{
-    out << number.value;
-
+    out << value.number;
     return out;
 }
 
-
-
-
-istream& operator>>(
-    istream& in,
-    RealNumber& number)
+istream& operator>>(istream& in, RealNumber& value)
 {
-    in >> number.value;
-
+    in >> value.number;
     return in;
 }

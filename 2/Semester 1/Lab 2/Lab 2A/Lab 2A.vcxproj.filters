@@ -21,9 +21,15 @@
     <ClCompile Include="RealNumber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RealNumberArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RealNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RealNumberArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
