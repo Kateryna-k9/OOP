@@ -1,7 +1,7 @@
+
 #pragma once
-
-
 #include <iostream>
+using namespace std;
 
 class B1
 {
@@ -10,12 +10,12 @@ private:
 
 public:
     B1(const int value);
-    virtual ~B1() = default;
+    virtual ~B1();
 
     int getValueB1() const;
     virtual void show() const;
 
-    friend std::ostream& operator<<(std::ostream& out, const B1& obj);
+    friend ostream& operator<<(ostream& out, const B1& obj);
 };
 
 class B2
@@ -25,12 +25,12 @@ private:
 
 public:
     B2(const int value);
-    virtual ~B2() = default;
+    virtual ~B2();
 
     int getValueB2() const;
     virtual void show() const;
 
-    friend std::ostream& operator<<(std::ostream& out, const B2& obj);
+    friend ostream& operator<<(ostream& out, const B2& obj);
 };
 
 class B3
@@ -40,10 +40,10 @@ private:
 
 public:
     B3(const int value);
-    virtual ~B3() = default;
+    virtual ~B3();
 
     int getValueB3() const;
     virtual void show() const;
 
-    friend std::ostream& operator<<(std::ostream& out, const B3& obj);
+    friend ostream& operator<<(ostream& out, const B3& obj);
 };
