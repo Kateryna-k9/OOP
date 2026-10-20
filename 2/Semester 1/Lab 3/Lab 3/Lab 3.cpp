@@ -36,7 +36,7 @@ int main()
     cout << "D1: " << obj5.getValueD1() << endl;
     cout << "D2: " << obj5.getValueD2() << endl;
 
-    return 0;
+   
 
 
     cout << "\n=== POLYMORPHISM ===" << endl;
@@ -54,4 +54,17 @@ int main()
     cout << "\nPointer D1 -> D2:" << endl;
     ptrD1->show();
 
+
+    cout << "\n=== VIRTUAL FUNCTIONS ===" << endl;
+
+    B1* ptr1 = &obj4;
+    B1* ptr2 = &obj5;
+
+    cout << "\nB1 pointer -> D1 object:" << endl;
+    ptr1->show();
+
+    cout << "\nB1 pointer -> D2 object:" << endl;
+    ptr2->show();
+
+    return 0;
 }
