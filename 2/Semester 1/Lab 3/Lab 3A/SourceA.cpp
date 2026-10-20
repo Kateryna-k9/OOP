@@ -23,6 +23,18 @@ int SOBAKA::getAge() const
     return age;
 }
 
+void SOBAKA::setWeight(const double newWeight)
+{
+    if (newWeight > 0)
+    {
+        weight = newWeight;
+    }
+    else
+    {
+        cout << "Invalid weight!" << endl;
+    }
+}
+
 void SOBAKA::show() const
 {
     cout << "Weight: " << weight << " kg" << endl;
@@ -32,9 +44,9 @@ void SOBAKA::show() const
 void SOBAKA::golos() const
 {
     if (weight >= 10)
-        cout << "ГАВ" << endl;
+        cout << "WOOF" << endl;
     else
-        cout << "гав" << endl;
+        cout << "woof" << endl;
 }
 
 
@@ -57,9 +69,9 @@ void SPANIEL::show() const
 void SPANIEL::golos() const
 {
     if (getWeight() >= 10)
-        cout << "ГАВ" << endl;
+        cout << "WOOF" << endl;
     else
-        cout << "гав" << endl;
+        cout << "woof" << endl;
 }
 
 
@@ -83,7 +95,7 @@ void DOG::show() const
 void DOG::golos() const
 {
     if (getWeight() >= 10)
-        cout << "ГАВ" << endl;
+        cout << "WOOF" << endl;
     else
-        cout << "гав" << endl;
+        cout << "woof" << endl;
 }

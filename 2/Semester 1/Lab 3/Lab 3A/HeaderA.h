@@ -17,6 +17,7 @@ public:
 
     double getWeight() const;
     int getAge() const;
+    void setWeight(const double newWeight);
 
     virtual void show() const;
     virtual void golos() const;
