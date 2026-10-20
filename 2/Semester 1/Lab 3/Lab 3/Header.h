@@ -63,3 +63,20 @@ public:
 
     friend ostream& operator<<(ostream& out, const D1& obj);
 };
+
+
+class D2 : public D1
+{
+private:
+    int valueD2;
+
+public:
+    D2(const int v1, const int v2, const int v3,
+        const int v4, const int v5);
+    virtual ~D2();
+
+    int getValueD2() const;
+    virtual void show() const;
+
+    friend ostream& operator<<(ostream& out, const D2& obj);
+};
