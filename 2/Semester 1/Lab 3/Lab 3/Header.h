@@ -59,6 +59,7 @@ public:
     virtual ~D1();
 
     int getValueD1() const;
+    int getB3Value() const;
     virtual void show() const;
 
     friend ostream& operator<<(ostream& out, const D1& obj);

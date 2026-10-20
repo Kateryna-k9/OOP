@@ -94,6 +94,11 @@ int D1::getValueD1() const
     return valueD1;
 }
 
+int D1::getB3Value() const
+{
+    return getValueB3();
+}
+
 void D1::show() const
 {
     cout << "B1: " << getValueB1() << endl;
@@ -111,3 +116,41 @@ ostream& operator<<(ostream& out, const D1& obj)
 
     return out;
 }
+
+
+
+D2::D2(const int v1, const int v2, const int v3,
+    const int v4, const int v5)
+    : D1(v1, v2, v3, v4), valueD2(v5)
+{
+}
+
+D2::~D2()
+{
+}
+
+int D2::getValueD2() const
+{
+    return valueD2;
+}
+
+void D2::show() const
+{
+    cout << "B1: " << getValueB1() << endl;
+    cout << "B2: " << getValueB2() << endl;
+    cout << "B3: " << getB3Value() << endl;
+    cout << "D1: " << getValueD1() << endl;
+    cout << "D2: " << valueD2 << endl;
+}
+
+ostream& operator<<(ostream& out, const D2& obj)
+{
+    out << "B1: " << obj.getValueB1() << endl;
+    out << "B2: " << obj.getValueB2() << endl;
+    out << "B3: " << obj.getB3Value() << endl;
+    out << "D1: " << obj.getValueD1() << endl;
+    out << "D2: " << obj.valueD2;
+
+    return out;
+}
+
