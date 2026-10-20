@@ -78,3 +78,36 @@ ostream& operator<<(ostream& out, const B3& obj)
     out << "B3: " << obj.valueB3;
     return out;
 }
+
+
+D1::D1(const int v1, const int v2, const int v3, const int v4)
+    : B1(v1), B2(v2), B3(v3), valueD1(v4)
+{
+}
+
+D1::~D1()
+{
+}
+
+int D1::getValueD1() const
+{
+    return valueD1;
+}
+
+void D1::show() const
+{
+    cout << "B1: " << getValueB1() << endl;
+    cout << "B2: " << getValueB2() << endl;
+    cout << "B3: " << getValueB3() << endl;
+    cout << "D1: " << valueD1 << endl;
+}
+
+ostream& operator<<(ostream& out, const D1& obj)
+{
+    out << "B1: " << obj.getValueB1() << endl;
+    out << "B2: " << obj.getValueB2() << endl;
+    out << "B3: " << obj.getValueB3() << endl;
+    out << "D1: " << obj.valueD1;
+
+    return out;
+}
