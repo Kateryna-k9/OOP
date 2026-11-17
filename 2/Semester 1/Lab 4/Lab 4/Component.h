@@ -30,7 +30,9 @@ public:
 
     void show() const;
 
-    // Binary file operations
+    
     void writeToFile(ofstream& out) const;
     void readFromFile(ifstream& in);
 };
+
+
