@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="Expert.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="TermProject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="Expert.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Team.h" />
   </ItemGroup>

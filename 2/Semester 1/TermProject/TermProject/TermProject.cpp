@@ -3,43 +3,46 @@
 
 
 
+
 #include <iostream>
-#include "Manager.h"
+#include "Expert.h"
 
 using namespace std;
 
 int main()
 {
-    Manager manager("Development", "Website",
+    Expert expert("Development", "Website",
         "Ivanenko", "Petrenko Petro",
-        "Personnel Management", "Active");
+        "Programming", "Consulting");
 
-    cout << "=== MANAGER INFORMATION ===" << endl;
-    manager.showInfo();
+    cout << "=== EXPERT INFORMATION ===" << endl;
+    expert.showInfo();
 
-    cout << "\n=== CHECK STATUS ===" << endl;
+    cout << "\n=== SEARCH BY SPECIALIZATION ===" << endl;
 
-    if (manager.isActive())
-        cout << "Manager is active!" << endl;
+    if (expert.hasSpecialization("Programming"))
+        cout << "Expert found!" << endl;
     else
-        cout << "Manager is not active!" << endl;
+        cout << "Expert not found!" << endl;
 
-    cout << "\n=== CHANGE STATUS ===" << endl;
+    cout << "\n=== CHANGE SPECIALIZATION ===" << endl;
 
-    manager.setWorkStatus("Vacation");
-    manager.showInfo();
+    expert.setSpecialization("Databases");
+    expert.setFunctions("Data Analysis");
 
-    cout << "\n=== CHECK STATUS AGAIN ===" << endl;
+    expert.showInfo();
 
-    if (manager.isActive())
-        cout << "Manager is active!" << endl;
+    cout << "\n=== SEARCH AGAIN ===" << endl;
+
+    if (expert.hasSpecialization("Programming"))
+        cout << "Expert found!" << endl;
     else
-        cout << "Manager is not active!" << endl;
+        cout << "Expert not found!" << endl;
 
     cout << "\n=== GETTERS ===" << endl;
-    cout << "Full name: " << manager.getFullName() << endl;
-    cout << "Skills: " << manager.getSkills() << endl;
-    cout << "Status: " << manager.getWorkStatus() << endl;
+    cout << "Full name: " << expert.getFullName() << endl;
+    cout << "Specialization: " << expert.getSpecialization() << endl;
+    cout << "Functions: " << expert.getFunctions() << endl;
 
     return 0;
 }
