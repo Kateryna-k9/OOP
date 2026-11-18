@@ -73,42 +73,7 @@ int DynamicArray::getSum() const
     return sum;
 }
 
-bool DynamicArray::loadFromFile(const char* filename)
-{
-    ifstream in(filename);
 
-    if (!in)
-        return false;
-
-    int newSize;
-    in >> newSize;
-
-    if (!in || newSize <= 0)
-    {
-        in.close();
-        return false;
-    }
-
-    int* newData = new int[newSize];
-
-    for (int i = 0; i < newSize; i++)
-    {
-        if (!(in >> *(newData + i)))
-        {
-            delete[] newData;
-            in.close();
-            return false;
-        }
-    }
-
-    delete[] data;
-
-    data = newData;
-    size = newSize;
-
-    in.close();
-    return true;
-}
 
 
 bool DynamicArray::saveToFile(const char* filename) const

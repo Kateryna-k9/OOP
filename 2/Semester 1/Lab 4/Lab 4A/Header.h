@@ -18,7 +18,7 @@ public:
     int getSize() const;
     int getSum() const;
 
-    bool loadFromFile(const char* filename);
+    
     bool saveToFile(const char* filename) const;
     bool appendSumToFile(const char* filename) const;
 };
