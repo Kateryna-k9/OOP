@@ -35,20 +35,26 @@ void DynamicArray::createArray(int newSize)
 }
 
 
+
 void DynamicArray::setElement(int index, int value)
 {
-    if (index >= 0 && index < size)
-        *(data + index) = value;
+    if (index < 0 || index >= size)
+        throw "Invalid array index!";
+
+    *(data + index) = value;
 }
+
+
 
 
 int DynamicArray::getElement(int index) const
 {
-    if (index >= 0 && index < size)
-        return *(data + index);
+    if (index < 0 || index >= size)
+        throw "Invalid array index!";
 
-    return 0;
+    return *(data + index);
 }
+
 
 
 int DynamicArray::getSize() const
