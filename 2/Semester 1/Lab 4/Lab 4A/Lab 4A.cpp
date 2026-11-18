@@ -183,14 +183,17 @@ int main()
                 break;
             }
 
+
             try
             {
-                cout << "Element: " << arr.getElement(index - 1) << endl;
+                int value = arr.getElement(index - 1);
+                cout << "Element: " << value << endl;
             }
             catch (const char* error)
             {
                 cout << "Error: " << error << endl;
             }
+
             }
 
 
