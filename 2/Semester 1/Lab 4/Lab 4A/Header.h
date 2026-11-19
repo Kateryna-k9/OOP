@@ -11,6 +11,9 @@ public:
     DynamicArray();
     ~DynamicArray();
 
+    DynamicArray(const DynamicArray& other) = delete;
+    DynamicArray& operator=(const DynamicArray& other) = delete;
+
     void createArray(int newSize);
     void setElement(int index, int value);
 
@@ -18,7 +21,6 @@ public:
     int getSize() const;
     int getSum() const;
 
-    
-    bool saveToFile(const char* filename) const;
-    bool appendSumToFile(const char* filename) const;
+    void saveToFile(const char* filename) const;
+    void appendSumToFile(const char* filename) const;
 };

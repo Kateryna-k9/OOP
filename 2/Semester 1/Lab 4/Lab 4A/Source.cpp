@@ -4,20 +4,16 @@
 
 using namespace std;
 
-
 DynamicArray::DynamicArray()
 {
     data = nullptr;
     size = 0;
 }
 
-
 DynamicArray::~DynamicArray()
 {
     delete[] data;
 }
-
-
 
 void DynamicArray::createArray(int newSize)
 {
@@ -34,8 +30,6 @@ void DynamicArray::createArray(int newSize)
     size = newSize;
 }
 
-
-
 void DynamicArray::setElement(int index, int value)
 {
     if (index < 0 || index >= size)
@@ -43,9 +37,6 @@ void DynamicArray::setElement(int index, int value)
 
     *(data + index) = value;
 }
-
-
-
 
 int DynamicArray::getElement(int index) const
 {
@@ -55,16 +46,16 @@ int DynamicArray::getElement(int index) const
     return *(data + index);
 }
 
-
-
 int DynamicArray::getSize() const
 {
     return size;
 }
 
-
 int DynamicArray::getSum() const
 {
+    if (size == 0)
+        throw "Array is empty!";
+
     int sum = 0;
 
     for (int i = 0; i < size; i++)
@@ -73,15 +64,15 @@ int DynamicArray::getSum() const
     return sum;
 }
 
-
-
-
-bool DynamicArray::saveToFile(const char* filename) const
+void DynamicArray::saveToFile(const char* filename) const
 {
+    if (size == 0)
+        throw "Array is empty!";
+
     ofstream out(filename);
 
     if (!out)
-        return false;
+        throw "Error opening results.txt for writing!";
 
     out << "Array elements: ";
 
@@ -90,31 +81,39 @@ bool DynamicArray::saveToFile(const char* filename) const
 
     out << endl;
 
-    bool success = (bool)out;
+    if (!out)
+        throw "Error writing array to file!";
+
     out.close();
 
-    return success;
+    if (!out)
+        throw "Error closing results.txt!";
 }
 
-
-bool DynamicArray::appendSumToFile(const char* filename) const
+void DynamicArray::appendSumToFile(const char* filename) const
 {
+    if (size == 0)
+        throw "Array is empty!";
+
     ifstream check(filename);
 
     if (!check)
-        return false;
+        throw "File does not exist! Save array first!";
 
     check.close();
 
     ofstream out(filename, ios::app);
 
     if (!out)
-        return false;
+        throw "Error opening results.txt for appending!";
 
     out << "Sum of elements: " << getSum() << endl;
 
-    bool success = (bool)out;
+    if (!out)
+        throw "Error writing sum to file!";
+
     out.close();
 
-    return success;
+    if (!out)
+        throw "Error closing results.txt!";
 }
