@@ -361,6 +361,7 @@ int main()
                     cout << "All components saved successfully!" << endl;
                 }
 
+
                 else if (choice == 9)
                 {
                     ifstream in("components.bin", ios::binary);
@@ -383,37 +384,29 @@ int main()
 
                     int count = bytes / sizeof(Component);
 
-                    if (count != COUNT)
-                        throw "File must contain exactly 3 components!";
+                    if (count == 0)
+                        throw "Binary file is empty!";
 
                     in.seekg(0, ios::beg);
 
                     if (!in)
                         throw "Error finding file beginning!";
 
-                    Component temp[COUNT];
-
-                    for (int i = 0; i < COUNT; i++)
-                    {
-                        (*(temp + i)).readFromFile(in);
-                    }
-
-                    for (int i = 0; i < COUNT; i++)
-                    {
-                        *(componentsWithParameters + i) =
-                            *(temp + i);
-                    }
-
-                    cout << "\nAll components loaded from binary file:"
-                        << endl;
+                    cout << "\nAll components from binary file:" << endl;
+                    cout << "Number of components: " << count << endl;
 
                     showHeader();
 
-                    for (int i = 0; i < COUNT; i++)
-                        (*(componentsWithParameters + i)).show();
+                    for (int i = 0; i < count; i++)
+                    {
+                        Component temp;
+                        temp.readFromFile(in);
+                        temp.show();
+                    }
 
                     in.close();
-                }
+                    }
+
 
                 else if (choice == 0)
                 {
