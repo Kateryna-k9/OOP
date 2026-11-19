@@ -3,20 +3,40 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <limits>
 
 using namespace std;
 
 const int COUNT = 3;
 
-template <typename T>
-void readValue(T& value)
+int readInt()
 {
+    int value;
+
     if (!(cin >> value))
-        throw "Invalid input!";
+        throw "Invalid integer input!";
+
+    return value;
 }
 
+double readDouble()
+{
+    double value;
 
+    if (!(cin >> value))
+        throw "Invalid number input!";
+
+    return value;
+}
+
+char readChar()
+{
+    char value;
+
+    if (!(cin >> value))
+        throw "Invalid character input!";
+
+    return value;
+}
 
 void readDesignation(char* designation)
 {
@@ -25,9 +45,10 @@ void readDesignation(char* designation)
 
     if (!cin)
         throw "Invalid designation input!";
+
+    if (*designation == '\0')
+        throw "Designation cannot be empty!";
 }
-
-
 
 void showHeader()
 {
@@ -80,23 +101,30 @@ int main()
 
         for (int i = 0; i < COUNT; i++)
         {
-            testIn.width(20);
+            testIn.get(designation, 20, ' ');
 
-            if (!(testIn >> designation >> type >> nominal >> quantity))
+            if (!testIn)
+                throw "Error reading designation!";
+
+            if (!(testIn >> type >> nominal >> quantity))
                 throw "Error reading test data!";
 
             *(componentsWithParameters + i) =
                 Component(designation, type, nominal, quantity);
+
+            testIn >> ws;
         }
 
         testIn.close();
 
-       
+        
         componentsCopy = new Component[COUNT];
 
         for (int i = 0; i < COUNT; i++)
+        {
             *(componentsCopy + i) =
-            Component(*(componentsWithParameters + i));
+                Component(*(componentsWithParameters + i));
+        }
 
         int choice = -1;
 
@@ -118,7 +146,7 @@ int main()
 
             try
             {
-                readValue(choice);
+                choice = readInt();
 
                 if (choice == 1)
                 {
@@ -135,7 +163,7 @@ int main()
                     int parameter;
 
                     cout << "\nEnter component number (1-3): ";
-                    readValue(number);
+                    number = readInt();
 
                     if (number < 1 || number > COUNT)
                         throw "Invalid component number!";
@@ -146,7 +174,8 @@ int main()
                     cout << "3. Nominal" << endl;
                     cout << "4. Quantity" << endl;
                     cout << "Enter parameter: ";
-                    readValue(parameter);
+
+                    parameter = readInt();
 
                     if (parameter < 1 || parameter > 4)
                         throw "Invalid parameter!";
@@ -163,30 +192,30 @@ int main()
 
                         current.setDesignation(newDesignation);
                     }
+
                     else if (parameter == 2)
                     {
-                        char newType;
-
                         cout << "Enter new type: ";
-                        readValue(newType);
+
+                        char newType = readChar();
 
                         current.setType(newType);
                     }
+
                     else if (parameter == 3)
                     {
-                        double newNominal;
-
                         cout << "Enter new nominal: ";
-                        readValue(newNominal);
+
+                        double newNominal = readDouble();
 
                         current.setNominal(newNominal);
                     }
+
                     else if (parameter == 4)
                     {
-                        int newQuantity;
-
                         cout << "Enter new quantity: ";
-                        readValue(newQuantity);
+
+                        int newQuantity = readInt();
 
                         current.setQuantity(newQuantity);
                     }
@@ -196,10 +225,9 @@ int main()
 
                 else if (choice == 3)
                 {
-                    int number;
-
                     cout << "\nEnter component number (1-3): ";
-                    readValue(number);
+
+                    int number = readInt();
 
                     if (number < 1 || number > COUNT)
                         throw "Invalid component number!";
@@ -238,10 +266,9 @@ int main()
 
                 else if (choice == 6)
                 {
-                    int number;
-
                     cout << "\nEnter component number (1-3): ";
-                    readValue(number);
+
+                    int number = readInt();
 
                     if (number < 1 || number > COUNT)
                         throw "Invalid component number!";
@@ -272,7 +299,10 @@ int main()
 
                     in.seekg(0, ios::end);
 
-                    streamoff bytes = in.tellg();
+                    if (!in)
+                        throw "Error finding file end!";
+
+                    int bytes = (int)in.tellg();
 
                     if (bytes < 0)
                         throw "Error determining file size!";
@@ -280,16 +310,15 @@ int main()
                     if (bytes % sizeof(Component) != 0)
                         throw "Invalid binary file size!";
 
-                    int count = (int)(bytes / sizeof(Component));
+                    int count = bytes / sizeof(Component);
 
                     if (count == 0)
                         throw "Binary file is empty!";
 
-                    int number;
-
                     cout << "\nEnter record number (1-"
                         << count << "): ";
-                    readValue(number);
+
+                    int number = readInt();
 
                     if (number < 1 || number > count)
                         throw "Invalid record number!";
@@ -298,7 +327,7 @@ int main()
                         ios::beg);
 
                     if (!in)
-                        throw "Error seeking record!";
+                        throw "Error finding record!";
 
                     Component temp;
                     temp.readFromFile(in);
@@ -319,8 +348,10 @@ int main()
                         throw "Error creating binary file!";
 
                     for (int i = 0; i < COUNT; i++)
+                    {
                         (*(componentsWithParameters + i))
-                        .writeToFile(out);
+                            .writeToFile(out);
+                    }
 
                     out.close();
 
@@ -339,7 +370,10 @@ int main()
 
                     in.seekg(0, ios::end);
 
-                    streamoff bytes = in.tellg();
+                    if (!in)
+                        throw "Error finding file end!";
+
+                    int bytes = (int)in.tellg();
 
                     if (bytes < 0)
                         throw "Error determining file size!";
@@ -347,7 +381,7 @@ int main()
                     if (bytes % sizeof(Component) != 0)
                         throw "Invalid binary file size!";
 
-                    int count = (int)(bytes / sizeof(Component));
+                    int count = bytes / sizeof(Component);
 
                     if (count != COUNT)
                         throw "File must contain exactly 3 components!";
@@ -355,18 +389,24 @@ int main()
                     in.seekg(0, ios::beg);
 
                     if (!in)
-                        throw "Error seeking file beginning!";
+                        throw "Error finding file beginning!";
 
                     Component temp[COUNT];
 
                     for (int i = 0; i < COUNT; i++)
+                    {
                         (*(temp + i)).readFromFile(in);
+                    }
 
                     for (int i = 0; i < COUNT; i++)
-                        *(componentsWithParameters + i) = *(temp + i);
+                    {
+                        *(componentsWithParameters + i) =
+                            *(temp + i);
+                    }
 
                     cout << "\nAll components loaded from binary file:"
                         << endl;
+
                     showHeader();
 
                     for (int i = 0; i < COUNT; i++)
@@ -385,27 +425,32 @@ int main()
                     throw "Invalid menu choice!";
                 }
             }
+
             catch (const char* error)
             {
                 cout << "Error: " << error << endl;
 
+                if (cin.eof())
+                    break;
+
                 if (cin.fail())
                 {
                     cin.clear();
-                    cin.ignore(
-                        numeric_limits<streamsize>::max(), '\n');
+                    cin.ignore(10000, '\n');
                 }
             }
 
         } while (choice != 0);
     }
+
     catch (const char* error)
     {
         cout << "Error: " << error << endl;
     }
-    catch (const exception& error)
+
+    catch (...)
     {
-        cout << "Error: " << error.what() << endl;
+        cout << "Unexpected error!" << endl;
     }
 
     delete[] components;

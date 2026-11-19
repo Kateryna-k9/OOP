@@ -2,7 +2,6 @@
 #include "Component.h"
 #include <iostream>
 #include <iomanip>
-#include <cmath>
 
 using namespace std;
 
@@ -63,7 +62,7 @@ int Component::getQuantity() const
 
 void Component::setNominal(double newNominal)
 {
-    if (!isfinite(newNominal) || newNominal < 0)
+    if (newNominal < 0)
         throw "Invalid nominal value!";
 
     nominal = newNominal;
@@ -71,7 +70,7 @@ void Component::setNominal(double newNominal)
 
 void Component::setType(char newType)
 {
-    if (newType == '\0' || newType == ' ')
+    if (newType == ' ' || newType == '\0')
         throw "Invalid component type!";
 
     type = newType;
@@ -87,8 +86,11 @@ void Component::setQuantity(int newQuantity)
 
 void Component::setDesignation(const char* newDesignation)
 {
-    if (newDesignation == nullptr || *newDesignation == '\0')
+    if (newDesignation == nullptr)
         throw "Invalid designation!";
+
+    if (*newDesignation == '\0')
+        throw "Designation cannot be empty!";
 
     int i = 0;
 
@@ -117,50 +119,48 @@ void Component::show() const
 void Component::writeToFile(ofstream& out) const
 {
     if (!out)
-        throw "Binary file is not open for writing!";
+        throw "Error opening binary file for writing!";
 
-    out.write(reinterpret_cast<const char*>(this),
-        sizeof(Component));
+    out.write((const char*)this, sizeof(Component));
 
     if (!out)
-        throw "Error writing component to binary file!";
+        throw "Error writing component!";
 }
 
 void Component::readFromFile(ifstream& in)
 {
     if (!in)
-        throw "Binary file is not open for reading!";
+        throw "Error opening binary file for reading!";
 
     Component temp;
 
-    in.read(reinterpret_cast<char*>(&temp),
-        sizeof(Component));
+    in.read((char*)&temp, sizeof(Component));
 
     if (!in)
-        throw "Error reading component from binary file!";
+        throw "Error reading component!";
 
-    bool hasEnd = false;
+    bool correct = false;
 
     for (int i = 0; i < 20; i++)
     {
         if (*(temp.designation + i) == '\0')
         {
-            hasEnd = true;
+            correct = true;
             break;
         }
     }
 
-    if (!hasEnd)
-        throw "Invalid designation in binary file!";
+    if (!correct)
+        throw "Invalid designation in file!";
 
-    if (!isfinite(temp.nominal) || temp.nominal < 0)
-        throw "Invalid nominal in binary file!";
+    if (temp.nominal < 0)
+        throw "Invalid nominal in file!";
 
     if (temp.quantity < 0)
-        throw "Invalid quantity in binary file!";
+        throw "Invalid quantity in file!";
 
-    if (temp.type == '\0' || temp.type == ' ')
-        throw "Invalid type in binary file!";
+    if (temp.type == ' ' || temp.type == '\0')
+        throw "Invalid type in file!";
 
     *this = temp;
 }
