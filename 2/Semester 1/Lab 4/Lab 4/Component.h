@@ -1,5 +1,4 @@
 
-
 #pragma once
 #include <fstream>
 
@@ -15,7 +14,8 @@ private:
 
 public:
     Component();
-    Component(const char* newDesignation, char newType, double newNominal, int newQuantity);
+    Component(const char* newDesignation, char newType,
+        double newNominal, int newQuantity);
     Component(const Component& other);
 
     char getType() const;
@@ -30,9 +30,6 @@ public:
 
     void show() const;
 
-    
     void writeToFile(ofstream& out) const;
     void readFromFile(ifstream& in);
 };
-
-

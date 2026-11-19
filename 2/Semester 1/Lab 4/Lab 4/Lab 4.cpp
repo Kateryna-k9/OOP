@@ -1,389 +1,411 @@
-// Lab 4.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
-
-#define _CRT_SECURE_NO_WARNINGS
 #include "Component.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <limits>
 
 using namespace std;
 
+const int COUNT = 3;
+
+template <typename T>
+void readValue(T& value)
+{
+    if (!(cin >> value))
+        throw "Invalid input!";
+}
+
+
+
+void readDesignation(char* designation)
+{
+    cin >> ws;
+    cin.getline(designation, 20);
+
+    if (!cin)
+        throw "Invalid designation input!";
+}
+
+
+
+void showHeader()
+{
+    cout << "Designation     Type      Nominal        Quantity" << endl;
+    cout << "-------------------------------------------------" << endl;
+}
+
 int main()
 {
-    FILE* f;
+    Component* components = nullptr;
+    Component* componentsWithParameters = nullptr;
+    Component* componentsCopy = nullptr;
 
-    fopen_s(&f, "data.txt", "w");
-
-    if (f == NULL)
+    try
     {
-        cout << "Error creating file." << endl;
-        return 1;
-    }
+        
+        ofstream testOut("data.txt");
 
-    fprintf(f, "RT-11-24 R 100000 12\n");
-    fprintf(f, "RT-11-24 R 50000 10\n");
-    fprintf(f, "CGU-12K C 17.5 3\n");
+        if (!testOut)
+            throw "Error creating data.txt!";
 
-    fclose(f);
+        testOut << "RT-11-24 R 100000 12\n";
+        testOut << "RT-11-24 R 50000 10\n";
+        testOut << "CGU-12K C 17.5 3\n";
 
-    cout << "Test data file created." << endl;
+        if (!testOut)
+            throw "Error writing test data!";
 
-    Component* components = new Component[3];
-    Component* componentsWithParameters = new Component[3];
+        testOut.close();
 
-    fopen_s(&f, "data.txt", "r");
+        if (!testOut)
+            throw "Error closing data.txt!";
 
-    if (f == NULL)
-    {
-        cout << "Error opening data file." << endl;
-        delete[] components;
-        delete[] componentsWithParameters;
-        return 1;
-    }
-
-    char designation[20];
-    char type;
-    double nominal;
-    int quantity;
-
-    for (int i = 0; i < 3; i++)
-    {
-        fscanf_s(f, "%19s %c %lf %d",
-            designation, (unsigned)_countof(designation),
-            &type, 1, &nominal, &quantity);
-
-        (*(componentsWithParameters + i)) =
-            Component(designation, type, nominal, quantity);
-    }
-
-    fclose(f);
-
-    Component* componentsCopy = new Component[3];
-
-    *(componentsCopy) = Component(*(componentsWithParameters));
-    *(componentsCopy + 1) = Component(*(componentsWithParameters + 1));
-    *(componentsCopy + 2) = Component(*(componentsWithParameters + 2));
-
-    int choice;
-
-    while (true)
-    {
-        cout << "\n========== MENU ==========" << endl;
-        cout << "1. Show components" << endl;
-        cout << "2. Change component" << endl;
-        cout << "3. Show data using get()" << endl;
-        cout << "4. Show copied components" << endl;
-        cout << "5. Show default components" << endl;
-        cout << "6. Save one component to binary file" << endl;
-        cout << "7. Read one component from binary file" << endl;
-        cout << "8. Save all components to binary file" << endl;
-        cout << "9. Read all components from binary file" << endl;
-        cout << "0. Exit" << endl;
-        cout << "==========================" << endl;
-
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        if (!cin)
-        {
-            cout << "Invalid input!" << endl;
-            break;
-        }
-
-        if (choice == 1)
-        {
-            cout << "\nDesignation     Type      Nominal        Quantity" << endl;
-            cout << "-------------------------------------------------" << endl;
-
-            for (int i = 0; i < 3; i++)
-                (*(componentsWithParameters + i)).show();
-        }
-
-        else if (choice == 2)
-        {
-            int number;
-            int parameter;
-
-            cout << "\nEnter component number (1-3): ";
-            cin >> number;
-
-            if (!cin || number < 1 || number > 3)
-            {
-                cout << "Invalid component number." << endl;
-                if (!cin) break;
-                continue;
-            }
-
-            cout << "\nWhat do you want to change?" << endl;
-            cout << "1. Designation" << endl;
-            cout << "2. Type" << endl;
-            cout << "3. Nominal" << endl;
-            cout << "4. Quantity" << endl;
-            cout << "Enter parameter: ";
-            cin >> parameter;
-
-            if (!cin)
-            {
-                cout << "Invalid input!" << endl;
-                break;
-            }
-
-            if (parameter == 1)
-            {
-                char newDesignation[20];
-
-                cout << "Enter new designation: ";
-                cin.width(20);
-                cin >> newDesignation;
-
-                (*(componentsWithParameters + number - 1)).setDesignation(newDesignation);
-            }
-
-            else if (parameter == 2)
-            {
-                char newType;
-
-                cout << "Enter new type: ";
-                cin >> newType;
-
-                (*(componentsWithParameters + number - 1)).setType(newType);
-            }
-
-            else if (parameter == 3)
-            {
-                double newNominal;
-
-                cout << "Enter new nominal: ";
-                cin >> newNominal;
-
-                (*(componentsWithParameters + number - 1)).setNominal(newNominal);
-            }
-
-            else if (parameter == 4)
-            {
-                int newQuantity;
-
-                cout << "Enter new quantity: ";
-                cin >> newQuantity;
-
-                (*(componentsWithParameters + number - 1)).setQuantity(newQuantity);
-            }
-
-            else
-            {
-                cout << "Invalid parameter." << endl;
-            }
-        }
-
-        else if (choice == 3)
-        {
-            int number;
-
-            cout << "\nEnter component number (1-3): ";
-            cin >> number;
-
-            if (!cin || number < 1 || number > 3)
-            {
-                cout << "Invalid component number." << endl;
-                if (!cin) break;
-                continue;
-            }
-
-            cout << "\nData of component:" << endl;
-            cout << "Designation: "
-                << (*(componentsWithParameters + number - 1)).getDesignation() << endl;
-            cout << "Type: "
-                << (*(componentsWithParameters + number - 1)).getType() << endl;
-            cout << "Nominal: "
-                << (*(componentsWithParameters + number - 1)).getNominal() << endl;
-            cout << "Quantity: "
-                << (*(componentsWithParameters + number - 1)).getQuantity() << endl;
-        }
-
-        else if (choice == 4)
-        {
-            cout << "\nCopied components:" << endl;
-            cout << "Designation     Type      Nominal        Quantity" << endl;
-            cout << "-------------------------------------------------" << endl;
-
-            for (int i = 0; i < 3; i++)
-                (*(componentsCopy + i)).show();
-        }
-
-        else if (choice == 5)
-        {
-            cout << "\nDefault components:" << endl;
-            cout << "Designation     Type      Nominal        Quantity" << endl;
-            cout << "-------------------------------------------------" << endl;
-
-            for (int i = 0; i < 3; i++)
-                (*(components + i)).show();
-        }
+        cout << "Test data file created." << endl;
 
         
-        else if (choice == 6)
-        {
-            int number;
-
-            cout << "\nEnter component number (1-3): ";
-            cin >> number;
-
-            if (!cin || number < 1 || number > 3)
-            {
-                cout << "Invalid component number." << endl;
-                if (!cin) break;
-                continue;
-            }
-
-            ofstream out("components.bin", ios::binary | ios::app);
-
-            if (!out)
-            {
-                cout << "Error opening binary file!" << endl;
-                continue;
-            }
-
-            (*(componentsWithParameters + number - 1)).writeToFile(out);
-
-            if (out)
-                cout << "Component saved successfully!" << endl;
-            else
-                cout << "Error writing component!" << endl;
-
-            out.close();
-        }
+        components = new Component[COUNT];
+        componentsWithParameters = new Component[COUNT];
 
         
-        else if (choice == 7)
+        ifstream testIn("data.txt");
+
+        if (!testIn)
+            throw "Error opening data.txt!";
+
+        char designation[20];
+        char type;
+        double nominal;
+        int quantity;
+
+        for (int i = 0; i < COUNT; i++)
         {
-            ifstream in("components.bin", ios::binary | ios::in);
+            testIn.width(20);
 
-            if (!in)
-            {
-                cout << "Binary file not found!" << endl;
-                continue;
-            }
+            if (!(testIn >> designation >> type >> nominal >> quantity))
+                throw "Error reading test data!";
 
-            in.seekg(0, ios::end);
-            int count = (int)(in.tellg() / sizeof(Component));
-
-            if (count == 0)
-            {
-                cout << "Binary file is empty!" << endl;
-                in.close();
-                continue;
-            }
-
-            int number;
-
-            cout << "\nEnter record number (1-" << count << "): ";
-            cin >> number;
-
-            if (!cin || number < 1 || number > count)
-            {
-                cout << "Invalid record number!" << endl;
-                in.close();
-                if (!cin) break;
-                continue;
-            }
-
-            in.seekg((number - 1) * sizeof(Component), ios::beg);
-
-            Component temp;
-            temp.readFromFile(in);
-
-            if (in)
-            {
-                cout << "\nComponent from binary file:" << endl;
-                cout << "Designation     Type      Nominal        Quantity" << endl;
-                cout << "-------------------------------------------------" << endl;
-                temp.show();
-            }
-            else
-                cout << "Error reading component!" << endl;
-
-            in.close();
+            *(componentsWithParameters + i) =
+                Component(designation, type, nominal, quantity);
         }
 
-        
-        else if (choice == 8)
-        {
-            ofstream out("components.bin", ios::binary | ios::out);
-
-            if (!out)
-            {
-                cout << "Error creating binary file!" << endl;
-                continue;
-            }
-
-            for (int i = 0; i < 3; i++)
-                (*(componentsWithParameters + i)).writeToFile(out);
-
-            if (out)
-                cout << "All components saved successfully!" << endl;
-            else
-                cout << "Error saving components!" << endl;
-
-            out.close();
-        }
+        testIn.close();
 
        
-        else if (choice == 9)
-        {
-            ifstream in("components.bin", ios::binary | ios::in);
+        componentsCopy = new Component[COUNT];
 
-            if (!in)
+        for (int i = 0; i < COUNT; i++)
+            *(componentsCopy + i) =
+            Component(*(componentsWithParameters + i));
+
+        int choice = -1;
+
+        do
+        {
+            cout << "\n========== MENU ==========" << endl;
+            cout << "1. Show components" << endl;
+            cout << "2. Change component" << endl;
+            cout << "3. Show data using get()" << endl;
+            cout << "4. Show copied components" << endl;
+            cout << "5. Show default components" << endl;
+            cout << "6. Save one component to binary file" << endl;
+            cout << "7. Read one component from binary file" << endl;
+            cout << "8. Save all components to binary file" << endl;
+            cout << "9. Read all components from binary file" << endl;
+            cout << "0. Exit" << endl;
+            cout << "==========================" << endl;
+            cout << "Enter your choice: ";
+
+            try
             {
-                cout << "Binary file not found!" << endl;
-                continue;
+                readValue(choice);
+
+                if (choice == 1)
+                {
+                    cout << "\nComponents:" << endl;
+                    showHeader();
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(componentsWithParameters + i)).show();
+                }
+
+                else if (choice == 2)
+                {
+                    int number;
+                    int parameter;
+
+                    cout << "\nEnter component number (1-3): ";
+                    readValue(number);
+
+                    if (number < 1 || number > COUNT)
+                        throw "Invalid component number!";
+
+                    cout << "\nWhat do you want to change?" << endl;
+                    cout << "1. Designation" << endl;
+                    cout << "2. Type" << endl;
+                    cout << "3. Nominal" << endl;
+                    cout << "4. Quantity" << endl;
+                    cout << "Enter parameter: ";
+                    readValue(parameter);
+
+                    if (parameter < 1 || parameter > 4)
+                        throw "Invalid parameter!";
+
+                    Component& current =
+                        *(componentsWithParameters + number - 1);
+
+                    if (parameter == 1)
+                    {
+                        char newDesignation[20];
+
+                        cout << "Enter new designation: ";
+                        readDesignation(newDesignation);
+
+                        current.setDesignation(newDesignation);
+                    }
+                    else if (parameter == 2)
+                    {
+                        char newType;
+
+                        cout << "Enter new type: ";
+                        readValue(newType);
+
+                        current.setType(newType);
+                    }
+                    else if (parameter == 3)
+                    {
+                        double newNominal;
+
+                        cout << "Enter new nominal: ";
+                        readValue(newNominal);
+
+                        current.setNominal(newNominal);
+                    }
+                    else if (parameter == 4)
+                    {
+                        int newQuantity;
+
+                        cout << "Enter new quantity: ";
+                        readValue(newQuantity);
+
+                        current.setQuantity(newQuantity);
+                    }
+
+                    cout << "Component changed successfully!" << endl;
+                }
+
+                else if (choice == 3)
+                {
+                    int number;
+
+                    cout << "\nEnter component number (1-3): ";
+                    readValue(number);
+
+                    if (number < 1 || number > COUNT)
+                        throw "Invalid component number!";
+
+                    Component& current =
+                        *(componentsWithParameters + number - 1);
+
+                    cout << "\nData of component:" << endl;
+                    cout << "Designation: "
+                        << current.getDesignation() << endl;
+                    cout << "Type: "
+                        << current.getType() << endl;
+                    cout << "Nominal: "
+                        << current.getNominal() << endl;
+                    cout << "Quantity: "
+                        << current.getQuantity() << endl;
+                }
+
+                else if (choice == 4)
+                {
+                    cout << "\nCopied components:" << endl;
+                    showHeader();
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(componentsCopy + i)).show();
+                }
+
+                else if (choice == 5)
+                {
+                    cout << "\nDefault components:" << endl;
+                    showHeader();
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(components + i)).show();
+                }
+
+                else if (choice == 6)
+                {
+                    int number;
+
+                    cout << "\nEnter component number (1-3): ";
+                    readValue(number);
+
+                    if (number < 1 || number > COUNT)
+                        throw "Invalid component number!";
+
+                    ofstream out("components.bin",
+                        ios::binary | ios::app);
+
+                    if (!out)
+                        throw "Error opening binary file!";
+
+                    (*(componentsWithParameters + number - 1))
+                        .writeToFile(out);
+
+                    out.close();
+
+                    if (!out)
+                        throw "Error closing binary file!";
+
+                    cout << "Component saved successfully!" << endl;
+                }
+
+                else if (choice == 7)
+                {
+                    ifstream in("components.bin", ios::binary);
+
+                    if (!in)
+                        throw "Binary file not found!";
+
+                    in.seekg(0, ios::end);
+
+                    streamoff bytes = in.tellg();
+
+                    if (bytes < 0)
+                        throw "Error determining file size!";
+
+                    if (bytes % sizeof(Component) != 0)
+                        throw "Invalid binary file size!";
+
+                    int count = (int)(bytes / sizeof(Component));
+
+                    if (count == 0)
+                        throw "Binary file is empty!";
+
+                    int number;
+
+                    cout << "\nEnter record number (1-"
+                        << count << "): ";
+                    readValue(number);
+
+                    if (number < 1 || number > count)
+                        throw "Invalid record number!";
+
+                    in.seekg((number - 1) * sizeof(Component),
+                        ios::beg);
+
+                    if (!in)
+                        throw "Error seeking record!";
+
+                    Component temp;
+                    temp.readFromFile(in);
+
+                    cout << "\nComponent from binary file:" << endl;
+                    showHeader();
+                    temp.show();
+
+                    in.close();
+                }
+
+                else if (choice == 8)
+                {
+                    ofstream out("components.bin",
+                        ios::binary | ios::out);
+
+                    if (!out)
+                        throw "Error creating binary file!";
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(componentsWithParameters + i))
+                        .writeToFile(out);
+
+                    out.close();
+
+                    if (!out)
+                        throw "Error closing binary file!";
+
+                    cout << "All components saved successfully!" << endl;
+                }
+
+                else if (choice == 9)
+                {
+                    ifstream in("components.bin", ios::binary);
+
+                    if (!in)
+                        throw "Binary file not found!";
+
+                    in.seekg(0, ios::end);
+
+                    streamoff bytes = in.tellg();
+
+                    if (bytes < 0)
+                        throw "Error determining file size!";
+
+                    if (bytes % sizeof(Component) != 0)
+                        throw "Invalid binary file size!";
+
+                    int count = (int)(bytes / sizeof(Component));
+
+                    if (count != COUNT)
+                        throw "File must contain exactly 3 components!";
+
+                    in.seekg(0, ios::beg);
+
+                    if (!in)
+                        throw "Error seeking file beginning!";
+
+                    Component temp[COUNT];
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(temp + i)).readFromFile(in);
+
+                    for (int i = 0; i < COUNT; i++)
+                        *(componentsWithParameters + i) = *(temp + i);
+
+                    cout << "\nAll components loaded from binary file:"
+                        << endl;
+                    showHeader();
+
+                    for (int i = 0; i < COUNT; i++)
+                        (*(componentsWithParameters + i)).show();
+
+                    in.close();
+                }
+
+                else if (choice == 0)
+                {
+                    cout << "Program finished." << endl;
+                }
+
+                else
+                {
+                    throw "Invalid menu choice!";
+                }
+            }
+            catch (const char* error)
+            {
+                cout << "Error: " << error << endl;
+
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(
+                        numeric_limits<streamsize>::max(), '\n');
+                }
             }
 
-            in.seekg(0, ios::end);
-            int count = (int)(in.tellg() / sizeof(Component));
-            in.seekg(0, ios::beg);
-
-            if (count != 3)
-            {
-                cout << "File must contain exactly 3 components!" << endl;
-                cout << "Components in file: " << count << endl;
-                in.close();
-                continue;
-            }
-
-            Component temp[3];
-
-            for (int i = 0; i < 3; i++)
-                (*(temp + i)).readFromFile(in);
-
-            if (in)
-            {
-                for (int i = 0; i < 3; i++)
-                    *(componentsWithParameters + i) = *(temp + i);
-
-                cout << "\nAll components loaded from binary file:" << endl;
-                cout << "Designation     Type      Nominal        Quantity" << endl;
-                cout << "-------------------------------------------------" << endl;
-
-                for (int i = 0; i < 3; i++)
-                    (*(componentsWithParameters + i)).show();
-            }
-            else
-                cout << "Error reading components!" << endl;
-
-            in.close();
-        }
-
-        else if (choice == 0)
-        {
-            cout << "Program finished." << endl;
-            break;
-        }
-
-        else
-        {
-            cout << "Invalid choice." << endl;
-        }
+        } while (choice != 0);
+    }
+    catch (const char* error)
+    {
+        cout << "Error: " << error << endl;
+    }
+    catch (const exception& error)
+    {
+        cout << "Error: " << error.what() << endl;
     }
 
     delete[] components;
