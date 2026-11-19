@@ -1,5 +1,5 @@
 
-#include "Header.h"
+#include "DynamicArray.h"
 #include <iostream>
 #include <fstream>
 #include <limits>
