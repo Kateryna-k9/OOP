@@ -17,3 +17,16 @@ public:
     Number<T>& operator=(const Number<T>& ob);
     Number<T> operator+(const Number<T>& ob) const;
 };
+
+const int N = 3;
+
+void loadData(Number<int>* intNumbers,
+    Number<float>* floatNumbers);
+
+template <class T>
+void showNumbers(const Number<T>* numbers,
+    const int size);
+
+void showMenu();
+
+int inputIndex();
