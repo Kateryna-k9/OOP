@@ -19,6 +19,18 @@ Expert::Expert(const char* name, const char* project,
     setFunctions(functions);
 }
 
+Expert::Expert(const Expert& ob) : Team(ob)
+{
+    setFullName(ob.fullName);
+    setSpecialization(ob.specialization);
+    setFunctions(ob.functions);
+}
+
+Expert::~Expert()
+{
+}
+
+
 void Expert::setFullName(const char* fullName)
 {
     copyText(this->fullName, fullName, 100);
@@ -76,4 +88,43 @@ void Expert::showInfo() const
     cout << "Full name: " << fullName << endl;
     cout << "Specialization: " << specialization << endl;
     cout << "Functions: " << functions << endl;
+}
+
+
+Expert& Expert::operator=(const Expert& ob)
+{
+    if (this != &ob)
+    {
+        Team::operator=(ob);
+
+        setFullName(ob.fullName);
+        setSpecialization(ob.specialization);
+        setFunctions(ob.functions);
+    }
+
+    return *this;
+}
+
+
+bool Expert::operator==(const Expert& ob) const
+{
+    int i = 0;
+
+    while (*(specialization + i) != '\0' &&
+        *(ob.specialization + i) != '\0')
+    {
+        if (*(specialization + i) != *(ob.specialization + i))
+            return false;
+
+        i++;
+    }
+
+    return *(specialization + i) == '\0' &&
+        *(ob.specialization + i) == '\0';
+}
+
+
+bool Expert::operator()(const char* required) const
+{
+    return hasSpecialization(required);
 }

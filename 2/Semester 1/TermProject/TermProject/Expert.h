@@ -16,6 +16,16 @@ public:
         const char* leader, const char* fullName,
         const char* specialization, const char* functions);
 
+    Expert(const Expert& ob);
+
+    ~Expert() override;
+
+    Expert& operator=(const Expert& ob);
+
+    bool operator==(const Expert& ob) const;
+    bool operator()(const char* required) const;
+
+
     void setFullName(const char* fullName);
     void setSpecialization(const char* specialization);
     void setFunctions(const char* functions);

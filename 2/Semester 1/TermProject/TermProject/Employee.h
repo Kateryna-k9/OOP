@@ -16,6 +16,21 @@ public:
         const char* leader, const char* fullName,
         const char* position, double salary);
 
+    Employee(const Employee& ob);
+
+    ~Employee() override;
+
+    Employee operator+(double amount) const;
+    Employee& operator=(const Employee& ob);
+    Employee& operator++();
+    Employee operator--(int);
+
+    bool operator==(const Employee& ob) const;
+    bool operator!=(const Employee& ob) const;
+    bool operator>(const Employee& ob) const;
+
+
+
     void setFullName(const char* fullName);
     void setPosition(const char* position);
     void setSalary(double salary);

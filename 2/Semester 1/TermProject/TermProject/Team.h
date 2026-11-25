@@ -15,11 +15,24 @@ protected:
     void copyText(char* destination, const char* source, int maxSize);
 
 public:
+    
     Team();
+
+    
     Team(const char* name, const char* entityType,
         const char* project, const char* leader);
 
-    virtual ~Team() = default;
+    
+    Team(const Team& ob);
+
+    
+    virtual ~Team();
+
+    Team& operator=(const Team& ob);
+
+    bool operator==(const Team& ob) const;
+    bool operator!=(const Team& ob) const;
+
 
     void setName(const char* name);
     void setEntityType(const char* entityType);

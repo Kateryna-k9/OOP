@@ -19,6 +19,17 @@ Manager::Manager(const char* name, const char* project,
     setWorkStatus(workStatus);
 }
 
+Manager::Manager(const Manager& ob) : Team(ob)
+{
+    setFullName(ob.fullName);
+    setSkills(ob.skills);
+    setWorkStatus(ob.workStatus);
+}
+
+Manager::~Manager()
+{
+}
+
 void Manager::setFullName(const char* fullName)
 {
     copyText(this->fullName, fullName, 100);
@@ -74,4 +85,40 @@ void Manager::showInfo() const
     cout << "Full name: " << fullName << endl;
     cout << "Skills: " << skills << endl;
     cout << "Work status: " << workStatus << endl;
+}
+
+Manager& Manager::operator=(const Manager& ob)
+{
+    if (this != &ob)
+    {
+        Team::operator=(ob);
+
+        setFullName(ob.fullName);
+        setSkills(ob.skills);
+        setWorkStatus(ob.workStatus);
+    }
+
+    return *this;
+}
+
+bool Manager::operator==(const Manager& ob) const
+{
+    int i = 0;
+
+    while (*(workStatus + i) != '\0' &&
+        *(ob.workStatus + i) != '\0')
+    {
+        if (*(workStatus + i) != *(ob.workStatus + i))
+            return false;
+
+        i++;
+    }
+
+    return *(workStatus + i) == '\0' &&
+        *(ob.workStatus + i) == '\0';
+}
+
+bool Manager::operator!() const
+{
+    return !isActive();
 }

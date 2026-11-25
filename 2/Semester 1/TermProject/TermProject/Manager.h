@@ -16,6 +16,16 @@ public:
         const char* leader, const char* fullName,
         const char* skills, const char* workStatus);
 
+    Manager(const Manager& ob);
+
+    ~Manager() override;
+
+    Manager& operator=(const Manager& ob);
+
+    bool operator==(const Manager& ob) const;
+    bool operator!() const;
+
+
     void setFullName(const char* fullName);
     void setSkills(const char* skills);
     void setWorkStatus(const char* workStatus);

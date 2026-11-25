@@ -17,6 +17,7 @@ void Team::copyText(char* destination, const char* source, int maxSize)
     *(destination + i) = '\0';
 }
 
+
 Team::Team()
 {
     setName("");
@@ -25,6 +26,7 @@ Team::Team()
     setLeader("");
 }
 
+
 Team::Team(const char* name, const char* entityType,
     const char* project, const char* leader)
 {
@@ -32,6 +34,20 @@ Team::Team(const char* name, const char* entityType,
     setEntityType(entityType);
     setProject(project);
     setLeader(leader);
+}
+
+
+Team::Team(const Team& ob)
+{
+    setName(ob.name);
+    setEntityType(ob.entityType);
+    setProject(ob.project);
+    setLeader(ob.leader);
+}
+
+
+Team::~Team()
+{
 }
 
 void Team::setName(const char* name)
@@ -80,4 +96,42 @@ void Team::showInfo() const
     cout << "Entity type: " << entityType << endl;
     cout << "Project: " << project << endl;
     cout << "Leader: " << leader << endl;
+}
+
+
+Team& Team::operator=(const Team& ob)
+{
+    if (this != &ob)
+    {
+        setName(ob.name);
+        setEntityType(ob.entityType);
+        setProject(ob.project);
+        setLeader(ob.leader);
+    }
+
+    return *this;
+}
+
+
+bool Team::operator==(const Team& ob) const
+{
+    int i = 0;
+
+    while (*(name + i) != '\0' &&
+        *(ob.name + i) != '\0')
+    {
+        if (*(name + i) != *(ob.name + i))
+            return false;
+
+        i++;
+    }
+
+    return *(name + i) == '\0' &&
+        *(ob.name + i) == '\0';
+}
+
+
+bool Team::operator!=(const Team& ob) const
+{
+    return !(*this == ob);
 }
