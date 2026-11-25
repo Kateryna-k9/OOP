@@ -141,6 +141,57 @@ int main() {
                     break;
                 }
 
+                case 7:
+                    saveData(intNumbers, floatNumbers);
+                    cout << "Data saved successfully!\n";
+                    break;
+                case 8: {
+                    int type;
+
+                    cout << "1. Integer numbers\n";
+                    cout << "2. Real numbers\n";
+                    cout << "Select number type: ";
+
+                    if (!(cin >> type))
+                        throw "Invalid input!";
+
+                    if (type == 1) {
+                        showNumbers(intNumbers, N);
+
+                        cout << "Enter number index: ";
+                        int i = inputIndex();
+
+                        int a;
+
+                        cout << "Enter new integer number: ";
+
+                        if (!(cin >> a))
+                            throw "Invalid integer number!";
+
+                        *(intNumbers + i) = Number<int>(a);
+                    }
+                    else if (type == 2) {
+                        showNumbers(floatNumbers, N);
+
+                        cout << "Enter number index: ";
+                        int i = inputIndex();
+
+                        float b;
+
+                        cout << "Enter new real number: ";
+
+                        if (!(cin >> b))
+                            throw "Invalid real number!";
+
+                        *(floatNumbers + i) = Number<float>(b);
+                    }
+                    else {
+                        throw "Invalid number type!";
+                    }
+
+                    cout << "Number changed successfully!\n";
+                    break;
+                }
                 case 0:
                     cout << "Program finished!\n";
                     break;
