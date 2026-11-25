@@ -122,3 +122,48 @@ bool Manager::operator!() const
 {
     return !isActive();
 }
+
+ostream& operator<<(ostream& out, const Manager& manager)
+{
+    out << "Team: " << manager.getName() << endl;
+    out << "Entity type: " << manager.getEntityType() << endl;
+    out << "Project: " << manager.getProject() << endl;
+    out << "Leader: " << manager.getLeader() << endl;
+    out << "Full name: " << manager.fullName << endl;
+    out << "Skills: " << manager.skills << endl;
+    out << "Work status: " << manager.workStatus << endl;
+
+    return out;
+}
+
+istream& operator>>(istream& in, Manager& manager)
+{
+    char teamName[50];
+    char project[50];
+    char leader[50];
+    char fullName[100];
+    char skills[150];
+    char workStatus[30];
+
+    in >> ws;
+
+    if (!in.getline(teamName, 50) ||
+        !in.getline(project, 50) ||
+        !in.getline(leader, 50) ||
+        !in.getline(fullName, 100) ||
+        !in.getline(skills, 150) ||
+        !in.getline(workStatus, 30))
+    {
+        return in;
+    }
+
+    manager.setName(teamName);
+    manager.setEntityType("Manager");
+    manager.setProject(project);
+    manager.setLeader(leader);
+    manager.setFullName(fullName);
+    manager.setSkills(skills);
+    manager.setWorkStatus(workStatus);
+
+    return in;
+}

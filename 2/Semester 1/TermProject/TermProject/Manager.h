@@ -25,6 +25,9 @@ public:
     bool operator==(const Manager& ob) const;
     bool operator!() const;
 
+    friend ostream& operator<<(ostream& out, const Manager& manager);
+    friend istream& operator>>(istream& in, Manager& manager);
+
 
     void setFullName(const char* fullName);
     void setSkills(const char* skills);

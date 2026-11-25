@@ -25,6 +25,9 @@ public:
     bool operator==(const Expert& ob) const;
     bool operator()(const char* required) const;
 
+    friend ostream& operator<<(ostream& out, const Expert& expert);
+    friend istream& operator>>(istream& in, Expert& expert);
+
 
     void setFullName(const char* fullName);
     void setSpecialization(const char* specialization);

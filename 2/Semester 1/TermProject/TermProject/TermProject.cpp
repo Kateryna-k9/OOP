@@ -10,69 +10,40 @@ int main()
         "Ivanenko", "Petrenko Petro",
         "Programming", "Consulting");
 
-    Expert expert2("Testing", "Mobile App",
-        "Shevchenko", "Kovalenko Anna",
-        "Programming", "Data Analysis");
+    cout << "=== OUTPUT OPERATOR << ===" << endl;
 
-    Expert expert3;
+    cout << expert1;
 
-    cout << "=== ORIGINAL EXPERTS ===" << endl;
+    cout << "\n=== INPUT OPERATOR >> ===" << endl;
 
-    cout << "\nExpert 1:" << endl;
-    expert1.showInfo();
+    Expert expert2;
 
-    cout << "\nExpert 2:" << endl;
-    expert2.showInfo();
+    cout << "Enter the following data, one per line:" << endl;
+    cout << "1. Team name" << endl;
+    cout << "2. Project" << endl;
+    cout << "3. Leader" << endl;
+    cout << "4. Full name" << endl;
+    cout << "5. Specialization" << endl;
+    cout << "6. Functions" << endl;
 
-    cout << "\n=== ASSIGNMENT OPERATOR ===" << endl;
+    cout << "\nEnter data:" << endl;
 
-    expert3 = expert1;
+    if (cin >> expert2)
+    {
+        cout << "\n=== NEW EXPERT ===" << endl;
+        cout << expert2;
 
-    cout << "Expert 3 after assignment:" << endl;
-    expert3.showInfo();
+        cout << "\n=== CHECK SPECIALIZATION ===" << endl;
 
-    cout << "\n=== OPERATOR == ===" << endl;
-
-    if (expert1 == expert2)
-        cout << "Experts have the same specialization!" << endl;
+        if (expert2.hasSpecialization("Databases"))
+            cout << "Expert with Databases found!" << endl;
+        else
+            cout << "Expert not found!" << endl;
+    }
     else
-        cout << "Experts have different specializations!" << endl;
-
-    cout << "\n=== OPERATOR () ===" << endl;
-
-    if (expert1("Programming"))
-        cout << "Expert with Programming found!" << endl;
-    else
-        cout << "Expert not found!" << endl;
-
-    if (expert2("Databases"))
-        cout << "Expert with Databases found!" << endl;
-    else
-        cout << "Expert not found!" << endl;
-
-    cout << "\n=== CHANGE SPECIALIZATION ===" << endl;
-
-    expert2.setSpecialization("Databases");
-
-    cout << "Expert 1: "
-        << expert1.getSpecialization() << endl;
-
-    cout << "Expert 2: "
-        << expert2.getSpecialization() << endl;
-
-    cout << "\n=== COMPARE AGAIN ===" << endl;
-
-    if (expert1 == expert2)
-        cout << "Experts have the same specialization!" << endl;
-    else
-        cout << "Experts have different specializations!" << endl;
-
-    cout << "\n=== SEARCH AGAIN ===" << endl;
-
-    if (expert2("Databases"))
-        cout << "Expert with Databases found!" << endl;
-    else
-        cout << "Expert not found!" << endl;
+    {
+        cout << "Invalid input!" << endl;
+    }
 
     return 0;
 }

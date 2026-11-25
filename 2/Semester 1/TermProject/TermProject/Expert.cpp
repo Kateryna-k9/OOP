@@ -128,3 +128,48 @@ bool Expert::operator()(const char* required) const
 {
     return hasSpecialization(required);
 }
+
+ostream& operator<<(ostream& out, const Expert& expert)
+{
+    out << "Team: " << expert.getName() << endl;
+    out << "Entity type: " << expert.getEntityType() << endl;
+    out << "Project: " << expert.getProject() << endl;
+    out << "Leader: " << expert.getLeader() << endl;
+    out << "Full name: " << expert.fullName << endl;
+    out << "Specialization: " << expert.specialization << endl;
+    out << "Functions: " << expert.functions << endl;
+
+    return out;
+}
+
+istream& operator>>(istream& in, Expert& expert)
+{
+    char teamName[50];
+    char project[50];
+    char leader[50];
+    char fullName[100];
+    char specialization[100];
+    char functions[150];
+
+    in >> ws;
+
+    if (!in.getline(teamName, 50) ||
+        !in.getline(project, 50) ||
+        !in.getline(leader, 50) ||
+        !in.getline(fullName, 100) ||
+        !in.getline(specialization, 100) ||
+        !in.getline(functions, 150))
+    {
+        return in;
+    }
+
+    expert.setName(teamName);
+    expert.setEntityType("Expert");
+    expert.setProject(project);
+    expert.setLeader(leader);
+    expert.setFullName(fullName);
+    expert.setSpecialization(specialization);
+    expert.setFunctions(functions);
+
+    return in;
+}

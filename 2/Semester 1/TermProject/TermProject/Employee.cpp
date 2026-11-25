@@ -130,3 +130,68 @@ bool Employee::operator>(const Employee& ob) const
     return salary > ob.salary;
 }
 
+
+double salaryDifference(const Employee& emp1, const Employee& emp2)
+{
+    return emp1.salary - emp2.salary;
+}
+
+Employee operator+(double amount, const Employee& emp)
+{
+    Employee temp(emp);
+
+    temp.setSalary(emp.salary + amount);
+
+    return temp;
+}
+
+ostream& operator<<(ostream& out, const Employee& emp)
+{
+    out << "Team: " << emp.getName() << endl;
+    out << "Entity type: " << emp.getEntityType() << endl;
+    out << "Project: " << emp.getProject() << endl;
+    out << "Leader: " << emp.getLeader() << endl;
+    out << "Full name: " << emp.fullName << endl;
+    out << "Position: " << emp.position << endl;
+    out << "Salary: " << emp.salary << endl;
+
+    return out;
+}
+
+istream& operator>>(istream& in, Employee& emp)
+{
+    char teamName[50];
+    char project[50];
+    char leader[50];
+    char fullName[100];
+    char position[50];
+    double salary;
+
+    in >> ws;
+
+    if (!in.getline(teamName, 50) ||
+        !in.getline(project, 50) ||
+        !in.getline(leader, 50) ||
+        !in.getline(fullName, 100) ||
+        !in.getline(position, 50) ||
+        !(in >> salary))
+    {
+        return in;
+    }
+
+    if (salary < 0)
+    {
+        in.setstate(ios::failbit);
+        return in;
+    }
+
+    emp.setName(teamName);
+    emp.setEntityType("Employee");
+    emp.setProject(project);
+    emp.setLeader(leader);
+    emp.setFullName(fullName);
+    emp.setPosition(position);
+    emp.setSalary(salary);
+
+    return in;
+}

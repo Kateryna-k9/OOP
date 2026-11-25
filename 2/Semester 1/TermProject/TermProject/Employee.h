@@ -29,7 +29,12 @@ public:
     bool operator!=(const Employee& ob) const;
     bool operator>(const Employee& ob) const;
 
+    friend double salaryDifference(const Employee& emp1,
+        const Employee& emp2);
+    friend Employee operator+(double amount, const Employee& emp);
 
+    friend ostream& operator<<(ostream& out, const Employee& emp);
+    friend istream& operator>>(istream& in, Employee& emp);
 
     void setFullName(const char* fullName);
     void setPosition(const char* position);
