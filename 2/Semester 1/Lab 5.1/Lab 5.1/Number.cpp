@@ -30,12 +30,6 @@ Number<T>& Number<T>::operator=(const Number<T>& ob) {
 
 template <class T>
 Number<T> Number<T>::operator+(const Number<T>& ob) const {
-    long double result = static_cast<long double>(x) + ob.x;
-
-    if (result > numeric_limits<T>::max() ||
-        result < numeric_limits<T>::lowest())
-        throw overflow_error("Addition overflow!");
-
     Number<T> temp;
     temp.x = x + ob.x;
 
